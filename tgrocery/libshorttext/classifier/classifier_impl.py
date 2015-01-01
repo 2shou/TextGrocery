@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
 import sys
-from os import path
+from os import system, path
 import os
 import shutil
 
-from tgrocery.converter import *
+from ..converter import *
 from .grid import find_parameters
-from tgrocery.libshorttext.classifier.learner import *
-
+from .learner import *
 
 VERSION = 0
 

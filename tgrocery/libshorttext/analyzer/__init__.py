@@ -26,8 +26,8 @@ To use the analysis tools, an analyzable result and a model are required. Refer 
 
 """
 
-from tgrocery.libshorttext.analyzer.analyzer_impl import *
+from .analyzer_impl import *
 del analyzer_impl
 
-from tgrocery.libshorttext.analyzer.selector import *
+from .selector import *
 del selector
