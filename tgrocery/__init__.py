@@ -1,13 +1,12 @@
 """
-LibShort is a package for short text classification. It supports training, test,
-and analysis tools.
+TextGrocery is a simple short-text classification tool based on LibShortText.
 """
 
 import os
 
-from tgrocery.analyzer import *
-from tgrocery.classifier import *
-from tgrocery.converter import *
+from libshorttext.analyzer import *
+from libshorttext.classifier import *
+from libshorttext.converter import *
 
 
 class GroceryException(Exception):
@@ -45,7 +44,14 @@ class Grocery(object):
         if not self.get_load_status():
             raise GroceryException()
         predict_result = predict_text(test_file, self.model, svm_file='%s_test.svm' % self.name)
-        return predict_result.get_accuracy()
+        self.show_accuracy(predict_result)
+
+    @staticmethod
+    def show_accuracy(predict_result):
+        print("Accuracy = {0:.4f}% ({1}/{2})".format(
+            predict_result.get_accuracy() * 100,
+            sum(ty == py for ty, py in zip(predict_result.true_y, predict_result.predicted_y)),
+            len(predict_result.true_y)))
 
     def save(self):
         if not self.get_load_status():

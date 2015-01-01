@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
-import os, sys
-sys.path = [os.path.dirname(os.path.abspath(__file__))] + sys.path 
-from liblinear import *
+import os
+import sys
+
+sys.path = [os.path.dirname(os.path.abspath(__file__))] + sys.path
+from tgrocery.libshorttext.classifier.learner.liblinear.python.liblinear import *
 
 def svm_read_problem(data_file_name):
 	"""

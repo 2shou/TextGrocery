@@ -9,15 +9,15 @@ from os.path import join
 class MakeCommand(DistutilsInstall):
     def run(self):
         os.system('make')
-        common_dir = 'tgrocery/converter/stemmer'
+        common_dir = 'tgrocery/libshorttext/converter/stemmer'
         target_dir = '%s/%s' % (self.build_lib, common_dir)
         self.mkpath(target_dir)
         os.system('mv %s/porter.so.1 %s' % (common_dir, target_dir))
-        common_dir = 'tgrocery/classifier/learner'
+        common_dir = 'tgrocery/libshorttext/classifier/learner'
         target_dir = '%s/%s' % (self.build_lib, common_dir)
         self.mkpath(target_dir)
         os.system('mv %s/util.so.1 %s' % (common_dir, target_dir))
-        common_dir = 'tgrocery/classifier/learner/liblinear'
+        common_dir = 'tgrocery/libshorttext/classifier/learner/liblinear'
         target_dir = '%s/%s' % (self.build_lib, common_dir)
         self.mkpath(target_dir)
         os.system('mv %s/liblinear.so.1 %s' % (common_dir, target_dir))
@@ -45,10 +45,12 @@ class CleanCommand(Clean):
 setup(
     name='tgrocery',
     version='1.0',
-    packages=['', 'tgrocery', 'tgrocery.analyzer', 'tgrocery.converter', 'tgrocery.converter.stemmer',
-              'tgrocery.classifier', 'tgrocery.classifier.learner', 'tgrocery.classifier.learner.liblinear',
-              'tgrocery.classifier.learner.liblinear.python'],
-    package_data={'tgrocery': [join('converter', 'stop-words', '*')]},
+    packages=['', 'tgrocery', 'tgrocery.libshorttext.analyzer', 'tgrocery.libshorttext.converter',
+              'tgrocery.libshorttext.converter.stemmer',
+              'tgrocery.libshorttext.classifier', 'tgrocery.libshorttext.classifier.learner',
+              'tgrocery.libshorttext.classifier.learner.liblinear',
+              'tgrocery.libshorttext.classifier.learner.liblinear.python'],
+    package_data={'tgrocery': [join('libshorttext', 'converter', 'stop-words', '*')]},
     url='https://github.com/2shou/TextGrocery',
     license='',
     author='2shou',

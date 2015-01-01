@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys, os
 from collections import defaultdict 
-from ..classifier import *
+from tgrocery.classifier import *
 __all__ = ['TextInstance', 'InstanceSet', 'Analyzer']
 
 if sys.version_info[0] >= 3:

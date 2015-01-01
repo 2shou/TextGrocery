@@ -2,9 +2,12 @@
 
 __all__ = ["TextPreprocessor", "FeatureGenerator", "ClassMapping", "Text2svmConverter", "convert_text"]
 
-import sys, os
-import unicodedata, re
+import sys
+import os
+import unicodedata
+import re
 from collections import defaultdict
+
 
 if sys.version_info[0] >= 3:
 	xrange = range
@@ -14,12 +17,10 @@ if sys.version_info[0] >= 3:
 		return string
 else :
 	import cPickle
-	from itertools import izip
 
 
 # import porter stemmer
-from .stemmer import porter
-
+from tgrocery.libshorttext.converter.stemmer import porter
 
 from ctypes import *
 # XXX This function must support outputing to one of the input file!!

@@ -12,5 +12,5 @@ For users who only need the most basic usage, they can use the utility function
 """
 
 
-from .converter_impl import *
+from tgrocery.libshorttext.converter.converter_impl import *
 del converter_impl

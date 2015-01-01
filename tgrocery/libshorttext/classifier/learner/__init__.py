@@ -21,5 +21,5 @@ used by :mod:`libshorttext.classifier` and :mod:`libshorttext.analyzer`.
 """
 
 
-from .learner_impl import *
+from tgrocery.libshorttext.classifier.learner.learner_impl import *
 del learner_impl

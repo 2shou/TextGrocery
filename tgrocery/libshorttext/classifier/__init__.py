@@ -34,5 +34,5 @@ and LIBLINEAR. Users can also use the :mod:`learner` module directly without
 """
 
 
-from .classifier_impl import * 
+from tgrocery.libshorttext.classifier.classifier_impl import *
 del classifier_impl
