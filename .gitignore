@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 
 # C extensions
-*.so
+*.so*
+*.o
+*.a
 
 # Distribution / packaging
 .Python
