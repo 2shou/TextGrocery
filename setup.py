@@ -44,16 +44,16 @@ class CleanCommand(Clean):
 
 setup(
     name='tgrocery',
-    version='1.1',
+    version='1.0',
     packages=['', 'tgrocery', 'tgrocery.analyzer', 'tgrocery.converter', 'tgrocery.converter.stemmer',
               'tgrocery.classifier', 'tgrocery.classifier.learner', 'tgrocery.classifier.learner.liblinear',
               'tgrocery.classifier.learner.liblinear.python'],
     package_data={'tgrocery': [join('converter', 'stop-words', '*')]},
-    url='',
+    url='https://github.com/2shou/TextGrocery',
     license='',
-    author='',
-    author_email='',
-    description='',
+    author='2shou',
+    author_email='gavin.zgz@gmail.com',
+    description='A simple short-text classification tool based on LibShortText',
     cmdclass={
         'install': MakeCommand,
         'clean': CleanCommand,
