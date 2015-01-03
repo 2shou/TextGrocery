@@ -5,7 +5,7 @@ from ctypes.util import find_library
 import sys
 import os
 
-stemmer = CDLL(os.path.join(os.path.dirname(__file__),'./porter.so.1'))
+stemmer = CDLL(os.path.join(os.path.dirname(os.path.abspath(__file__)),'./porter.so.1'))
 
 def fillprototype(f, restype, argtypes): 
 	f.restype = restype

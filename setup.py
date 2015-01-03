@@ -12,15 +12,15 @@ class MakeCommand(DistutilsInstall):
         common_dir = 'tgrocery/libshorttext/converter/stemmer'
         target_dir = '%s/%s' % (self.build_lib, common_dir)
         self.mkpath(target_dir)
-        os.system('mv %s/porter.so.1 %s' % (common_dir, target_dir))
+        os.system('cp %s/porter.so.1 %s' % (common_dir, target_dir))
         common_dir = 'tgrocery/libshorttext/classifier/learner'
         target_dir = '%s/%s' % (self.build_lib, common_dir)
         self.mkpath(target_dir)
-        os.system('mv %s/util.so.1 %s' % (common_dir, target_dir))
+        os.system('cp %s/util.so.1 %s' % (common_dir, target_dir))
         common_dir = 'tgrocery/libshorttext/classifier/learner/liblinear'
         target_dir = '%s/%s' % (self.build_lib, common_dir)
         self.mkpath(target_dir)
-        os.system('mv %s/liblinear.so.1 %s' % (common_dir, target_dir))
+        os.system('cp %s/liblinear.so.1 %s' % (common_dir, target_dir))
         DistutilsInstall.run(self)
 
 
@@ -33,7 +33,8 @@ class CleanCommand(Clean):
             shutil.rmtree('build')
         for dirpath, dirnames, filenames in os.walk('tgrocery'):
             for filename in filenames:
-                if (filename.endswith('.o') or filename.endswith('.a') or filename.endswith('.so') or filename.endswith(
+                if (filename.endswith('.o') or filename.endswith('.a') or filename.endswith(
+                        '.so.1') or filename.endswith(
                         '.pyd') or filename.endswith(
                         '.dll') or filename.endswith('.pyc')):
                     os.unlink(os.path.join(dirpath, filename))
