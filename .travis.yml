@@ -13,4 +13,5 @@ before_script:
     - python setup.py install
 
 script:
+    - cd ..
     - python sample/classify.py
