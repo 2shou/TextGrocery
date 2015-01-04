@@ -15,4 +15,4 @@ before_script:
 
 script:
     - cd ..
-    - python sample/classify.py
+    - python runtests.py
