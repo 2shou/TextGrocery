@@ -9,6 +9,8 @@ branches:
     - master
 
 before_script:
+    - pip install -q -e . --use-mirrors
+    - pip install jieba
     - cd extern
     - python setup.py install
 
