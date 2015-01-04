@@ -3,6 +3,15 @@ TextGrocery
 
 A simple short-text classification tool based on LibShortText
 
+Dependency
+----------
+[python-libshorttext](https://github.com/2shou/python-libshorttext)
+
+Prepare
+-------
+
+    $ cd extern; python setup.py install
+
 Create Grocery
 --------------
 
