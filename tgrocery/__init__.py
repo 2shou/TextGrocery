@@ -62,8 +62,9 @@ class Grocery(object):
         # Overwrite the previous model?
         if self.get_load_status():
             raise GroceryException()
-        self.model = TextModel()
-        self.model.load(self.name)
+        self.model = TextModel(self.name)
+        if self.tokenizer is not None:
+            self.model.text_converter.text_prep.tokenizer = self.tokenizer
 
     def __del__(self):
         train_svm = '%s.svm' % self.name

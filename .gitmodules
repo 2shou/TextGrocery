@@ -1,0 +1,3 @@
+[submodule "extern"]
+	path = extern
+	url = https://github.com/2shou/python-libshorttext.git
