@@ -1,6 +1,8 @@
 TextGrocery
 ===========
 
+[![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
+
 A simple short-text classification tool based on LibShortText
 
 Prepare
