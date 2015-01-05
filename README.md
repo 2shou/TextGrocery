@@ -14,6 +14,8 @@ Create Grocery
 --------------
 
 ```python
+from tgrocery import Grocery
+
 grocery = Grocery('sample')
 ```
 
@@ -37,10 +39,5 @@ Test
 ```python
 grocery.test('test_ch.txt')
 ```
-
-Install
------------
-
-    $ python setup.py install
 
 More examples: [sample/](sample/)
