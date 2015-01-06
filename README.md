@@ -8,35 +8,20 @@ A simple short-text classification tool based on LibShortText
 Prepare
 -------
 
-    $ cd extern; python setup.py install
+    $ cd external/libshorttext
+    $ python setup.py install
 
-Create Grocery
---------------
-
-```python
-from tgrocery import Grocery
-
-grocery = Grocery('sample')
-```
-
-Train
---------
+Sample Code
+-----------
 
 ```python
-grocery.train('train_ch.txt')
-```
-
-Predict
--------
-
-```python
+>> from tgrocery import Grocery
+>> grocery = Grocery('sample')
+# Train
+>> grocery.train('train_ch.txt')
+# Predict
 grocery.predict('考生必读：新托福写作考试评分标准')
-```
-
-Test
-----
-
-```python
+# Test
 grocery.test('test_ch.txt')
 ```
 

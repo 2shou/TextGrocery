@@ -10,7 +10,7 @@ branches:
 
 before_script:
     - pip install jieba
-    - cd extern
+    - cd external/libshorttext
     - python setup.py install
 
 script:
