@@ -13,6 +13,10 @@ class GroceryException(Exception):
     pass
 
 
+class SVMConverter(object):
+    pass
+
+
 class Grocery(object):
     def __init__(self, name, tokenizer=None):
         self.name = name
