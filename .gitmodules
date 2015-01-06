@@ -1,7 +1,7 @@
-[submodule "libshorttext"]
-	path = extern/libshorttext
+[submodule "external/liblinear"]
+	path = external/libshorttext
 	url = https://github.com/2shou/python-libshorttext.git
 
-[submodule "liblinear"]
-	path = extern/liblinear
+[submodule "external/liblinear"]
+	path = external/liblinear
 	url = https://github.com/cjlin1/liblinear.git
