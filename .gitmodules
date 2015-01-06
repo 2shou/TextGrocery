@@ -1,4 +1,4 @@
-[submodule "external/liblinear"]
+[submodule "external/libshorttext"]
 	path = external/libshorttext
 	url = https://github.com/2shou/python-libshorttext.git
 
