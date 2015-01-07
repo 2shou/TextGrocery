@@ -3,18 +3,14 @@ TextGrocery
 
 [![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
 
-A simple short-text classification tool based on LibShortText
-
-Other languages: [中文文档](README_CN.md)
-
-Prepare
+安装依赖
 -------
 
     $ cd external/libshorttext
     $ python setup.py install
 
-Sample Code
------------
+示例代码
+-------
 
 ```python
 >> from tgrocery import Grocery
@@ -27,4 +23,4 @@ grocery.predict('考生必读：新托福写作考试评分标准')
 grocery.test('test_ch.txt')
 ```
 
-More examples: [sample/](sample/)
+更多示例: [sample/](sample/)
