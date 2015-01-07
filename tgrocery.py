@@ -3,18 +3,75 @@ TextGrocery is a simple short-text classification tool based on LibShortText.
 """
 
 import os
+from collections import defaultdict
 
-from libshorttext.analyzer import *
 from libshorttext.classifier import *
 from libshorttext.converter import *
+import jieba
 
 
 class GroceryException(Exception):
     pass
 
 
-class SVMConverter(object):
-    pass
+class GroceryTextPreProcessor(object):
+    def __init__(self):
+        self.tok2idx = {}
+
+    @staticmethod
+    def _default_tokenize(text):
+        return jieba.cut(text, cut_all=True)
+
+    def preprocess(self, text):
+        tokens = self._default_tokenize(text)
+        ret = []
+        for idx, tok in enumerate(tokens):
+            if tok not in self.tok2idx:
+                self.tok2idx[tok] = len(self.tok2idx)
+            ret.append(self.tok2idx[tok])
+        return ret
+
+
+class GroceryFeatureGenerator(object):
+    def __init__(self):
+        pass
+
+    def unigram(self, text):
+        feat = defaultdict(int)
+        NG = self.ngram2fidx
+        for x in text:
+            if (x,) not in NG:
+                if self._readonly: continue
+                NG[x,] = len(NG)
+                self.fidx2ngram = None
+            feat[NG[x,]] += 1
+        return feat
+
+    def bigram(self, text):
+        feat = self.unigram(text)
+        NG = self.ngram2fidx
+        for x, y in zip(text[:-1], text[1:]):
+            if (x, y) not in NG:
+                if self._readonly: continue
+                NG[x, y] = len(NG)
+                self.fidx2ngram = None
+            feat[NG[x, y]] += 1
+        return feat
+
+
+class ClassMapping(object):
+    def __init__(self):
+        pass
+
+
+class GroceryTextConverter(object):
+    def __init__(self):
+        self.text_prep = GroceryTextPreProcessor()
+        self.feat_gen = GroceryFeatureGenerator()
+        self.class_map = ClassMapping()
+
+    def transfer_svm(self, text):
+        feat = self.feat_gen.bigram(self.text_prep.preprocess(text))
 
 
 class Grocery(object):
