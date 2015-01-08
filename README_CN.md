@@ -3,6 +3,8 @@ TextGrocery
 
 [![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
 
+一个傻瓜化的短文本分类工具，基于LibShortText
+
 安装依赖
 -------
 
