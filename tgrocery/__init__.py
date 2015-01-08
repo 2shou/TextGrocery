@@ -18,8 +18,13 @@ class Grocery(object):
                 raise GroceryException()
         self.model = None
 
-    def get_load_status(self):
-        return self.model is not None
+    def check_load_status(self, func):
+        def wrapper(*args):
+            if self.model is not None:
+                raise GroceryException()
+            func(args)
+
+        return wrapper
 
     def train(self, train_file):
         text_converter = GroceryTextConverter()
@@ -30,14 +35,12 @@ class Grocery(object):
         self.model = GroceryClassifier(text_converter).train_converted_text(svm_file)
         return self
 
+    @check_load_status
     def predict(self, single_text):
-        if not self.get_load_status():
-            raise GroceryException()
         return predict_single_text(single_text, self.model).predicted_y
 
+    @check_load_status
     def test(self, test_file):
-        if not self.get_load_status():
-            raise GroceryException()
         predict_result = predict_text(test_file, self.model, svm_file='%s_test.svm' % self.name)
         self.show_accuracy(predict_result)
 
@@ -48,9 +51,8 @@ class Grocery(object):
             sum(ty == py for ty, py in zip(predict_result.true_y, predict_result.predicted_y)),
             len(predict_result.true_y)))
 
+    @check_load_status
     def save(self):
-        if not self.get_load_status():
-            raise GroceryException()
         self.model.save(self.name, force=True)
 
     def load(self):

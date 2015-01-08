@@ -150,7 +150,6 @@ class GroceryTextConverter(object):
         self.feat_gen.save(os.path.join(dest_dir, config['feat_gen']))
         self.class_map.save(os.path.join(dest_dir, config['class_map']))
 
-
     def load(self, src_dir):
         config = {
             'text_prep': 'text_prep.config.pickle',
