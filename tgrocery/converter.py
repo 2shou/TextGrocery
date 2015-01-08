@@ -1,10 +1,9 @@
-"""
-TextGrocery is a simple short-text classification tool based on LibShortText.
-"""
-
 from collections import defaultdict
+import cPickle
+import os
 
 import jieba
+
 
 __all__ = ['GroceryTextConverter']
 
@@ -12,6 +11,7 @@ __all__ = ['GroceryTextConverter']
 class GroceryTextPreProcessor(object):
     def __init__(self):
         self.tok2idx = {}
+        self.idx2tok = None
 
     @staticmethod
     def _default_tokenize(text):
@@ -26,10 +26,22 @@ class GroceryTextPreProcessor(object):
             ret.append(self.tok2idx[tok])
         return ret
 
+    def save(self, dest_file):
+        self.idx2tok = list(self.tok2idx)
+        config = {'idx2tok': self.idx2tok}
+        cPickle.dump(config, open(dest_file, 'wb'), -1)
+
+    def load(self, src_file):
+        config = cPickle.load(open(src_file, 'rb'))
+        self.idx2tok = config['idx2tok']
+        self.tok2idx = dict(self.idx2tok)
+        return self
+
 
 class GroceryFeatureGenerator(object):
     def __init__(self):
         self.ngram2fidx = {}
+        self.fidx2ngram = None
 
     def unigram(self, tokens):
         feat = defaultdict(int)
@@ -49,11 +61,24 @@ class GroceryFeatureGenerator(object):
             feat[NG[x, y]] += 1
         return feat
 
+    def save(self, dest_file):
+        self.fidx2ngram = list(self.ngram2fidx)
+        config = {'fidx2ngram': self.fidx2ngram}
+        cPickle.dump(config, open(dest_file, 'wb'), -1)
+
+    def load(self, src_file):
+        config = cPickle.load(open(src_file, 'rb'))
+        self.fidx2ngram = config['fidx2ngram']
+        self.ngram2fidx = dict(self.fidx2ngram)
+        return self
+
 
 class GroceryClassMapping(object):
     def __init__(self):
         self.class2idx = {}
+        self.idx2class = None
 
+    @staticmethod
     def to_idx(self, class_name):
         if class_name in self.class2idx:
             return self.class2idx[class_name]
@@ -61,6 +86,27 @@ class GroceryClassMapping(object):
         m = len(self.class2idx)
         self.class2idx[class_name] = m
         return m
+
+    def to_class_name(self, idx):
+        if self.idx2class is None:
+            self.idx2class = list(self.class2idx)
+        if idx == -1:
+            return "**not in training**"
+        if idx >= len(self.idx2class):
+            raise KeyError(
+                'class idx ({0}) should be less than the number of classes ({0}).'.format(idx, len(self.idx2class)))
+        return self.idx2class[idx]
+
+    def save(self, dest_file):
+        self.idx2class = list(self.class2idx)
+        config = {'idx2class': self.idx2class}
+        cPickle.dump(config, open(dest_file, 'wb'), -1)
+
+    def load(self, src_file):
+        config = cPickle.load(open(src_file, 'rb'))
+        self.idx2class = config['idx2class']
+        self.class2idx = dict(self.idx2class)
+        return self
 
 
 class GroceryTextConverter(object):
@@ -72,6 +118,12 @@ class GroceryTextConverter(object):
     def transfer_svm(self, text, class_name=None):
         feat = self.feat_gen.bigram(self.text_prep.preprocess(text))
         return feat, self.class_map.to_idx(class_name)
+
+    def get_class_idx(self, class_name):
+        return self.class_map.to_idx(class_name)
+
+    def get_class_name(self, class_idx):
+        return self.class_map.to_class_name(class_idx)
 
     def convert_text(self, text_src, output=None):
         if not output:
@@ -85,3 +137,29 @@ class GroceryTextConverter(object):
                         continue
                     feat, label = self.transfer_svm(text, label)
                     w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+
+    def save(self, dest_dir):
+        config = {
+            'text_prep': 'text_prep.config.pickle',
+            'feat_gen': 'feat_gen.config.pickle',
+            'class_map': 'class_map.config.pickle',
+        }
+        if not os.path.exists(dest_dir):
+            os.mkdir(dest_dir)
+        self.text_prep.save(os.path.join(dest_dir, config['text_prep']))
+        self.feat_gen.save(os.path.join(dest_dir, config['feat_gen']))
+        self.class_map.save(os.path.join(dest_dir, config['class_map']))
+
+
+    def load(self, src_dir):
+        config = {
+            'text_prep': 'text_prep.config.pickle',
+            'feat_gen': 'feat_gen.config.pickle',
+            'class_map': 'class_map.config.pickle',
+            'extra_nr_feats': 'extra_nr_feats.pickle',
+            'extra_file_ids': 'extra_file_ids.pickle'
+        }
+        self.text_prep.load(os.path.join(src_dir, config['text_prep']))
+        self.feat_gen.load(os.path.join(src_dir, config['feat_gen']))
+        self.class_map.load(os.path.join(src_dir, config['class_map']))
+        return self

@@ -1,5 +1,7 @@
-from converter import *
 from libshorttext.classifier import *
+
+from converter import *
+from classifier import *
 
 
 class GroceryException(Exception):
@@ -25,7 +27,7 @@ class Grocery(object):
             text_converter.text_prep.tokenizer = self.tokenizer
         svm_file = '%s.svm' % self.name
         text_converter.convert_text(train_file, output=svm_file)
-        self.model = train_converted_text(svm_file, text_converter)
+        self.model = GroceryClassifier(text_converter).train_converted_text(svm_file)
         return self
 
     def predict(self, single_text):
