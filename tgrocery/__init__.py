@@ -13,10 +13,9 @@ class Grocery(object):
     def __init__(self, name, tokenizer=None):
         self.name = name
         if tokenizer is not None:
-            if hasattr(tokenizer, '__call__'):
-                self.tokenizer = tokenizer
-            else:
+            if not hasattr(tokenizer, '__call__'):
                 raise GroceryException()
+            self.tokenizer = tokenizer
         self.model = None
 
     def check_load_status(self, func):
@@ -29,8 +28,9 @@ class Grocery(object):
 
     def train(self, train_file):
         text_converter = GroceryTextConverter()
-        if self.tokenizer is not None:
-            text_converter.text_prep.tokenizer = self.tokenizer
+        # TODO custom tokenizer
+        # if self.tokenizer is not None:
+        #     text_converter.text_prep.tokenizer = self.tokenizer
         svm_file = '%s.svm' % self.name
         text_converter.convert_text(train_file, output=svm_file)
         self.model = GroceryClassifier(text_converter).train_converted_text(svm_file)
