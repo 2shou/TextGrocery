@@ -56,9 +56,7 @@ class Grocery(object):
         self.model.save(self.name, force=True)
 
     def load(self):
-        # Overwrite the previous model?
-        if self.get_load_status():
-            raise GroceryException()
+        # TODO how to load new model?
         self.model = TextModel(self.name)
         if self.tokenizer is not None:
             self.model.text_converter.text_prep.tokenizer = self.tokenizer
