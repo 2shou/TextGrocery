@@ -1,5 +1,3 @@
-from libshorttext.classifier import *
-
 from converter import *
 from classifier import *
 
@@ -17,33 +15,32 @@ class Grocery(object):
                 raise GroceryException()
             self.tokenizer = tokenizer
         self.model = None
+        self.classifier = None
 
-    def check_load_status(self, func):
-        def wrapper(*args):
-            if self.model is not None:
-                raise GroceryException()
-            func(args)
-
-        return wrapper
+    def get_load_status(self):
+        return self.model is not None
 
     def train(self, train_file):
         text_converter = GroceryTextConverter()
         # TODO custom tokenizer
         # if self.tokenizer is not None:
-        #     text_converter.text_prep.tokenizer = self.tokenizer
+        # text_converter.text_prep.tokenizer = self.tokenizer
         svm_file = '%s.svm' % self.name
         text_converter.convert_text(train_file, output=svm_file)
-        self.model = GroceryClassifier(text_converter).train_converted_text(svm_file)
+        self.classifier = GroceryClassifier(text_converter)
+        self.model = self.classifier.train_converted_text(svm_file)
         return self
 
-    @check_load_status
     def predict(self, single_text):
-        return predict_single_text(single_text, self.model).predicted_y
+        if not self.get_load_status():
+            raise GroceryException()
+        return self.classifier.predict_text(single_text, self.model).predicted_y
 
-    @check_load_status
-    def test(self, test_file):
-        predict_result = predict_text(test_file, self.model, svm_file='%s_test.svm' % self.name)
-        self.show_accuracy(predict_result)
+    # def test(self, test_file):
+    # if not self.get_load_status():
+    # raise GroceryException()
+    # predict_result = GroceryClassifier.predict_text(test_file, self.model, svm_file='%s_test.svm' % self.name)
+    #     self.show_accuracy(predict_result)
 
     @staticmethod
     def show_accuracy(predict_result):
@@ -52,13 +49,14 @@ class Grocery(object):
             sum(ty == py for ty, py in zip(predict_result.true_y, predict_result.predicted_y)),
             len(predict_result.true_y)))
 
-    @check_load_status
     def save(self):
+        if not self.get_load_status():
+            raise GroceryException()
         self.model.save(self.name, force=True)
 
     def load(self):
         # TODO how to load new model?
-        self.model = TextModel(self.name)
+        self.model = GroceryTextModel(self.name)
         if self.tokenizer is not None:
             self.model.text_converter.text_prep.tokenizer = self.tokenizer
 

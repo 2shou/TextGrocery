@@ -17,8 +17,8 @@ class GroceryTestCase(unittest.TestCase):
     def test_predict(self):
         assert self.grocery.predict('考生必读：新托福写作考试评分标准') == 'education'
 
-    def test_test(self):
-        self.grocery.test('sample/test_ch.txt')
+    # def test_test(self):
+    #     self.grocery.test('sample/test_ch.txt')
 
 if __name__ == 'main':
     unittest.main()

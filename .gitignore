@@ -1,11 +1,14 @@
 .idea/
+tgrocery/learner/test
+tgrocery/learner/liblinear/predict
+tgrocery/learner/liblinear/train
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 
 # C extensions
-*.so*
+*.so.1
 *.o
 *.a
 

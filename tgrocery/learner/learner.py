@@ -26,7 +26,7 @@ sys.path = [LIBLINEAR_HOME, LIBLINEAR_HOME + '/python'] + sys.path
 import liblinear
 from liblinearutil import train as liblinear_train, predict as liblinear_predict, save_model as liblinear_save_model, load_model as liblinear_load_model
 
-__all__ = ['LearnerParameter', 'LearnerModel', 
+__all__ = ['LearnerParameter', 'LearnerModel',
         'train', 'predict_one', 'predict', 'LIBLINEAR_HOME']
 
 
@@ -35,12 +35,12 @@ def print_debug(src):
         print('[DEBUG]: ' + src)
 
 
-def fillprototype(f, restype, argtypes): 
+def fillprototype(f, restype, argtypes):
     f.restype = restype
     f.argtypes = argtypes
 
 
-def genFields(names, types): 
+def genFields(names, types):
     return list(zip(names, types))
 
 

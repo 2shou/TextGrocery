@@ -78,7 +78,6 @@ class GroceryClassMapping(object):
         self.class2idx = {}
         self.idx2class = None
 
-    @staticmethod
     def to_idx(self, class_name):
         if class_name in self.class2idx:
             return self.class2idx[class_name]
@@ -115,7 +114,7 @@ class GroceryTextConverter(object):
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
 
-    def transfer_svm(self, text, class_name=None):
+    def to_svm(self, text, class_name=None):
         feat = self.feat_gen.bigram(self.text_prep.preprocess(text))
         return feat, self.class_map.to_idx(class_name)
 
@@ -135,7 +134,7 @@ class GroceryTextConverter(object):
                         label, text = line.split('\t', 1)
                     except ValueError:
                         continue
-                    feat, label = self.transfer_svm(text, label)
+                    feat, label = self.to_svm(text, label)
                     w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
 
     def save(self, dest_dir):

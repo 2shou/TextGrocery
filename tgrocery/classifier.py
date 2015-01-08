@@ -2,9 +2,8 @@ import uuid
 import os
 import shutil
 
-from learner import train
 from converter import GroceryTextConverter
-from learner import LearnerModel
+from .learner import *
 
 
 class GroceryTextModel(object):
@@ -45,10 +44,54 @@ class GroceryTextModel(object):
             fout.write(self._hashcode)
 
 
+class GroceryPredictResult(object):
+    def __init__(self, predicted_y=None, dec_values=None, labels=None):
+        self.predicted_y = predicted_y
+        self.dec_values = dec_values
+        self.labels = labels
+
+
 class GroceryClassifier(object):
     def __init__(self, text_converter):
         self.text_converter = text_converter
 
     def train_converted_text(self, svm_file):
         model = train(svm_file)
+        print type(model)
         return GroceryTextModel(self.text_converter, model)
+
+    @staticmethod
+    def _predict_one(xi, m):
+        if isinstance(xi, (list, dict)):
+            xi = liblinear.gen_feature_nodearray(xi)[0]
+        elif not isinstance(xi, POINTER(liblinear.feature_node)):
+            raise TypeError("xi should be a test instance")
+        learner_param = LearnerParameter(m.param_options[0], m.param_options[1])
+        if m.bias >= 0:
+            i = 0
+            while xi[i].index != -1: i += 1
+            # Already has bias, or bias reserved.
+            # Actually this statement should be true if
+            # the data is read by read_SVMProblem.
+            if i > 0 and xi[i - 1].index == m.nr_feature + 1:
+                i -= 1
+            xi[i] = liblinear.feature_node(m.nr_feature + 1, m.bias)
+            xi[i + 1] = liblinear.feature_node(-1, 0)
+        LearnerProblem.normalize_one(xi, learner_param, m.idf)
+        dec_values = (c_double * m.nr_class)()
+        label = liblinear.liblinear.predict_values(m, xi, dec_values)
+        return label, dec_values
+
+    def predict_text(self, text, text_model):
+        if not isinstance(text_model, GroceryTextModel):
+            raise TypeError('argument 1 should be GroceryTextModel')
+        if text_model.svm_model is None:
+            raise Exception('This model is not usable because svm model is not given')
+        if not isinstance(text, str):
+            raise TypeError('The argument should be plain text')
+        text = text_model.text_converter.to_svm(text)
+        y, dec = self._predict_one(text, text_model.svm_model)
+        y = text_model.text_converter.get_class_name(int(y))
+        labels = [text_model.text_converter.get_class_name(k) for k in
+                  text_model.svm_model.label[:text_model.svm_model.nr_class]]
+        return GroceryPredictResult(predicted_y=y, dec_values=dec[:text_model.svm_model.nr_class], labels=labels)
