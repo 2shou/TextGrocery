@@ -4,6 +4,7 @@ from converter import *
 from classifier import *
 
 
+# TODO how to handle exception
 class GroceryException(Exception):
     pass
 
