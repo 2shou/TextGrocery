@@ -1,6 +1,7 @@
 from collections import defaultdict
 import cPickle
 import os
+from utils import read_text_src
 
 import jieba
 
@@ -144,16 +145,9 @@ class GroceryTextConverter(object):
     def convert_text(self, text_src, output=None):
         if not output:
             output = '%s.svm' % text_src
-        if isinstance(text_src, str):
-            with open(text_src, 'r') as f:
-                lines = list(f)
-        elif isinstance(text_src, list):
-            lines = text_src
-        else:
-            # TODO hint
-            raise TypeError()
+        text_src = read_text_src(text_src)
         with open(output, 'w') as w:
-            for line in lines:
+            for line in text_src:
                 try:
                     label, text = line
                 except ValueError:

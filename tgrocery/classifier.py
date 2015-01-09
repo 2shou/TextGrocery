@@ -43,33 +43,21 @@ class GroceryTextModel(object):
         with open(model_name + '/id', 'w') as fout:
             fout.write(self._hashcode)
 
+    def predict_text(self, text):
+        if self.svm_model is None:
+            raise Exception('This model is not usable because svm model is not given')
+        if not isinstance(text, str):
+            raise TypeError('The argument should be plain text')
+        text = self.text_converter.to_svm(text)
+        y, dec = predict_one(text, self.svm_model)
+        y = self.text_converter.get_class_name(int(y))
+        labels = [self.text_converter.get_class_name(k) for k in
+                  self.svm_model.label[:self.svm_model.nr_class]]
+        return GroceryPredictResult(predicted_y=y, dec_values=dec[:self.svm_model.nr_class], labels=labels)
+
 
 class GroceryPredictResult(object):
     def __init__(self, predicted_y=None, dec_values=None, labels=None):
         self.predicted_y = predicted_y
         self.dec_values = dec_values
         self.labels = labels
-
-
-class GroceryClassifier(object):
-    def __init__(self, text_converter):
-        self.text_converter = text_converter
-
-    def train_converted_text(self, svm_file):
-        model = train(svm_file)
-        return GroceryTextModel(self.text_converter, model)
-
-    @staticmethod
-    def predict_text(text, text_model):
-        if not isinstance(text_model, GroceryTextModel):
-            raise TypeError('argument 1 should be GroceryTextModel')
-        if text_model.svm_model is None:
-            raise Exception('This model is not usable because svm model is not given')
-        if not isinstance(text, str):
-            raise TypeError('The argument should be plain text')
-        text = text_model.text_converter.to_svm(text)
-        y, dec = predict_one(text, text_model.svm_model)
-        y = text_model.text_converter.get_class_name(int(y))
-        labels = [text_model.text_converter.get_class_name(k) for k in
-                  text_model.svm_model.label[:text_model.svm_model.nr_class]]
-        return GroceryPredictResult(predicted_y=y, dec_values=dec[:text_model.svm_model.nr_class], labels=labels)

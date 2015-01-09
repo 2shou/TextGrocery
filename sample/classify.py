@@ -12,6 +12,8 @@ train_src = [
     ('sports', '图文：法网孟菲尔斯苦战进16强 孟菲尔斯怒吼'),
     ('sports', '四川丹棱举行全国长距登山挑战赛 近万人参与')
 ]
-grocery.train(train_src)
-print grocery.get_load_status()
-print grocery.predict('考生必读：新托福写作考试评分标准')
+# grocery.train(train_src)
+grocery.train('train_file.txt')
+print grocery.test('test_file.txt')
+# print grocery.get_load_status()
+# print grocery.predict('考生必读：新托福写作考试评分标准')
