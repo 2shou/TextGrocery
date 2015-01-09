@@ -35,7 +35,7 @@ class Grocery(object):
     def predict(self, single_text):
         if not self.get_load_status():
             raise GroceryException()
-        return self.classifier.predict_text(single_text, self.model).predicted_y
+        return GroceryClassifier.predict_text(single_text, self.model).predicted_y
 
     # def test(self, test_file):
     # if not self.get_load_status():
@@ -57,9 +57,10 @@ class Grocery(object):
 
     def load(self):
         # TODO how to load new model?
-        self.model = GroceryTextModel(self.name)
-        if self.tokenizer is not None:
-            self.model.text_converter.text_prep.tokenizer = self.tokenizer
+        self.model = GroceryTextModel()
+        self.model.load(self.name)
+        # if self.tokenizer is not None:
+        #     self.model.text_converter.text_prep.tokenizer = self.tokenizer
 
     def __del__(self):
         train_svm = '%s.svm' % self.name

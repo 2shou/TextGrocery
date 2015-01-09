@@ -11,7 +11,7 @@ class GroceryTextModel(object):
         if isinstance(text_converter, GroceryTextConverter):
             self.text_converter = text_converter
         self.svm_model = model
-        self._hashcode = uuid.uuid4()
+        self._hashcode = str(uuid.uuid4())
 
     def __str__(self):
         return 'TextModel instance ({0}, {1})'.format(self.text_converter, self.svm_model)

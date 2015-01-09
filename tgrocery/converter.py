@@ -8,6 +8,20 @@ import jieba
 __all__ = ['GroceryTextConverter']
 
 
+def _dict2list(d):
+    if len(d) == 0:
+        return []
+    m = max(v for k, v in d.iteritems())
+    ret = [''] * (m + 1)
+    for k, v in d.iteritems():
+        ret[v] = k
+    return ret
+
+
+def _list2dict(l):
+    return dict((v, k) for k, v in enumerate(l))
+
+
 class GroceryTextPreProcessor(object):
     def __init__(self):
         # index must start from 1
@@ -28,14 +42,14 @@ class GroceryTextPreProcessor(object):
         return ret
 
     def save(self, dest_file):
-        self.idx2tok = list(self.tok2idx)
+        self.idx2tok = _dict2list(self.tok2idx)
         config = {'idx2tok': self.idx2tok}
         cPickle.dump(config, open(dest_file, 'wb'), -1)
 
     def load(self, src_file):
         config = cPickle.load(open(src_file, 'rb'))
         self.idx2tok = config['idx2tok']
-        self.tok2idx = dict(self.idx2tok)
+        self.tok2idx = _list2dict(self.idx2tok)
         return self
 
 
@@ -63,14 +77,14 @@ class GroceryFeatureGenerator(object):
         return feat
 
     def save(self, dest_file):
-        self.fidx2ngram = list(self.ngram2fidx)
+        self.fidx2ngram = _dict2list(self.ngram2fidx)
         config = {'fidx2ngram': self.fidx2ngram}
         cPickle.dump(config, open(dest_file, 'wb'), -1)
 
     def load(self, src_file):
         config = cPickle.load(open(src_file, 'rb'))
         self.fidx2ngram = config['fidx2ngram']
-        self.ngram2fidx = dict(self.fidx2ngram)
+        self.ngram2fidx = _list2dict(self.fidx2ngram)
         return self
 
 
@@ -98,14 +112,14 @@ class GroceryClassMapping(object):
         return self.idx2class[idx]
 
     def save(self, dest_file):
-        self.idx2class = list(self.class2idx)
+        self.idx2class = _dict2list(self.class2idx)
         config = {'idx2class': self.idx2class}
         cPickle.dump(config, open(dest_file, 'wb'), -1)
 
     def load(self, src_file):
         config = cPickle.load(open(src_file, 'rb'))
         self.idx2class = config['idx2class']
-        self.class2idx = dict(self.idx2class)
+        self.class2idx = _list2dict(self.idx2class)
         return self
 
 
