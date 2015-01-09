@@ -20,9 +20,9 @@ Sample Code
 
 ```python
 >> from tgrocery import Grocery
-# create a grocery(don't forget to set a name)
+# Create a grocery(don't forget to set a name)
 >> grocery = Grocery('sample')
-# train from list
+# Train from list
 >> train_src = [
     ('education', '名师指导托福语法技巧：名词的复数形式'),
     ('education', '中国高考成绩海外认可 是“狼来了”吗？'),
