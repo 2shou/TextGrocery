@@ -16,13 +16,13 @@ TextGrocery
 
 ```python
 >> from tgrocery import Grocery
+# 新开张一个杂货铺，别忘了取名！
 >> grocery = Grocery('sample')
-# Train
+# 训练
 >> grocery.train('train_ch.txt')
-# Predict
-grocery.predict('考生必读：新托福写作考试评分标准')
-# Test
-grocery.test('test_ch.txt')
+# 预测
+>> grocery.predict('考生必读：新托福写作考试评分标准')
+education
 ```
 
 更多示例: [sample/](sample/)
