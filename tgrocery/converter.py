@@ -144,15 +144,22 @@ class GroceryTextConverter(object):
     def convert_text(self, text_src, output=None):
         if not output:
             output = '%s.svm' % text_src
-        with open(output, 'w') as w:
+        if isinstance(text_src, str):
             with open(text_src, 'r') as f:
-                for line in f:
-                    try:
-                        label, text = line.split('\t', 1)
-                    except ValueError:
-                        continue
-                    feat, label = self.to_svm(text, label)
-                    w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+                lines = list(f)
+        elif isinstance(text_src, list):
+            lines = text_src
+        else:
+            # TODO hint
+            raise TypeError()
+        with open(output, 'w') as w:
+            for line in lines:
+                try:
+                    label, text = line
+                except ValueError:
+                    continue
+                feat, label = self.to_svm(text, label)
+                w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
 
     def save(self, dest_dir):
         config = {

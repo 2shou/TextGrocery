@@ -20,14 +20,14 @@ class Grocery(object):
     def get_load_status(self):
         return self.model is not None
 
-    def train(self, train_file):
+    def train(self, train_src):
         text_converter = GroceryTextConverter()
         # TODO custom tokenizer
         # if self.tokenizer is not None:
         # text_converter.text_prep.tokenizer = self.tokenizer
         svm_file = '%s.svm' % self.name
         # TODO how to realize more elegantly?
-        text_converter.convert_text(train_file, output=svm_file)
+        text_converter.convert_text(train_src, output=svm_file)
         self.classifier = GroceryClassifier(text_converter)
         self.model = self.classifier.train_converted_text(svm_file)
         return self
@@ -60,7 +60,7 @@ class Grocery(object):
         self.model = GroceryTextModel()
         self.model.load(self.name)
         # if self.tokenizer is not None:
-        #     self.model.text_converter.text_prep.tokenizer = self.tokenizer
+        # self.model.text_converter.text_prep.tokenizer = self.tokenizer
 
     def __del__(self):
         train_svm = '%s.svm' % self.name
