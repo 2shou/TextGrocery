@@ -10,7 +10,8 @@ __all__ = ['GroceryTextConverter']
 
 class GroceryTextPreProcessor(object):
     def __init__(self):
-        self.tok2idx = {}
+        # index must start from 1
+        self.tok2idx = {'>>dummy<<': 0}
         self.idx2tok = None
 
     @staticmethod
@@ -40,7 +41,7 @@ class GroceryTextPreProcessor(object):
 
 class GroceryFeatureGenerator(object):
     def __init__(self):
-        self.ngram2fidx = {}
+        self.ngram2fidx = {'>>dummy<<': 0}
         self.fidx2ngram = None
 
     def unigram(self, tokens):
@@ -114,15 +115,17 @@ class GroceryTextConverter(object):
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
 
-    def to_svm(self, text, class_name=None):
-        feat = self.feat_gen.bigram(self.text_prep.preprocess(text))
-        return feat, self.class_map.to_idx(class_name)
-
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
 
     def get_class_name(self, class_idx):
         return self.class_map.to_class_name(class_idx)
+
+    def to_svm(self, text, class_name=None):
+        feat = self.feat_gen.bigram(self.text_prep.preprocess(text))
+        if class_name is None:
+            return feat
+        return feat, self.class_map.to_idx(class_name)
 
     def convert_text(self, text_src, output=None):
         if not output:

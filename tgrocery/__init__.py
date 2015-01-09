@@ -26,6 +26,7 @@ class Grocery(object):
         # if self.tokenizer is not None:
         # text_converter.text_prep.tokenizer = self.tokenizer
         svm_file = '%s.svm' % self.name
+        # TODO how to realize more elegantly?
         text_converter.convert_text(train_file, output=svm_file)
         self.classifier = GroceryClassifier(text_converter)
         self.model = self.classifier.train_converted_text(svm_file)
@@ -40,7 +41,7 @@ class Grocery(object):
     # if not self.get_load_status():
     # raise GroceryException()
     # predict_result = GroceryClassifier.predict_text(test_file, self.model, svm_file='%s_test.svm' % self.name)
-    #     self.show_accuracy(predict_result)
+    # self.show_accuracy(predict_result)
 
     @staticmethod
     def show_accuracy(predict_result):
