@@ -3,15 +3,17 @@ TextGrocery
 
 [![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
 
-A simple short-text classification tool based on LibShortText
+A simple, efficient short-text classification tool based on LibLinear
 
 Other languages: [中文文档](README_CN.md)
 
 Prepare
 -------
 
-    $ cd external/libshorttext
-    $ python setup.py install
+    $ cd tgrocery/learner 
+    $ make
+
+> Only test under Unix-based System
 
 Sample Code
 -----------

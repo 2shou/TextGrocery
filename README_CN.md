@@ -3,13 +3,15 @@ TextGrocery
 
 [![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
 
-一个傻瓜化的短文本分类工具，基于LibShortText
+一个简单而高效的短文本分类工具，基于LibLinear
 
 安装依赖
 -------
 
-    $ cd external/libshorttext
-    $ python setup.py install
+    $ cd tgrocery/learner 
+    $ make
+
+> 目前仅在Unix系统下测试通过
 
 示例代码
 -------
