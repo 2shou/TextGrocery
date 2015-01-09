@@ -10,8 +10,8 @@ branches:
 
 before_script:
     - pip install jieba
-    - cd external/libshorttext
-    - python setup.py install
+    - cd tgrocery/learner
+    - make
 
 script:
     - cd -
