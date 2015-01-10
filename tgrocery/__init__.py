@@ -17,6 +17,7 @@ class Grocery(object):
             self.tokenizer = tokenizer
         self.model = None
         self.classifier = None
+        self.train_svm_file = None
 
     def get_load_status(self):
         return self.model is not None
@@ -24,12 +25,10 @@ class Grocery(object):
     def train(self, train_src):
         text_converter = GroceryTextConverter()
         # TODO custom tokenizer
-        # if self.tokenizer is not None:
-        # text_converter.text_prep.tokenizer = self.tokenizer
-        svm_file = '%s.svm' % self.name
+        self.train_svm_file = '%s_train.svm' % self.name
         # TODO how to realize more elegantly?
-        text_converter.convert_text(train_src, output=svm_file)
-        model = train(svm_file, '', '-s 4')
+        text_converter.convert_text(train_src, output=self.train_svm_file)
+        model = train(self.train_svm_file, '', '-s 4')
         self.model = GroceryTextModel(text_converter, model)
         return self
 
@@ -47,7 +46,6 @@ class Grocery(object):
                 label, text = line
             except ValueError:
                 continue
-            print self.predict(text), text
             predicted_y.append(self.predict(text))
             true_y.append(label)
         l = len(true_y)
@@ -62,13 +60,7 @@ class Grocery(object):
         # TODO how to load new model?
         self.model = GroceryTextModel()
         self.model.load(self.name)
-        # if self.tokenizer is not None:
-        # self.model.text_converter.text_prep.tokenizer = self.tokenizer
 
-        # def __del__(self):
-        # train_svm = '%s.svm' % self.name
-        #     if os.path.exists(train_svm):
-        #         os.remove(train_svm)
-        #     test_svm = '%s_test.svm' % self.name
-        #     if os.path.exists(test_svm):
-        #         os.remove(test_svm)
+    def __del__(self):
+        if os.path.exists(self.train_svm_file):
+            os.remove(self.train_svm_file)

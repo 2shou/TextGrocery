@@ -1,9 +1,10 @@
 from collections import defaultdict
 import cPickle
 import os
-from utils import read_text_src
 
 import jieba
+
+from utils import read_text_src
 
 
 __all__ = ['GroceryTextConverter']
@@ -104,7 +105,7 @@ class GroceryClassMapping(object):
 
     def to_class_name(self, idx):
         if self.idx2class is None:
-            self.idx2class = list(self.class2idx)
+            self.idx2class = _dict2list(self.class2idx)
         if idx == -1:
             return "**not in training**"
         if idx >= len(self.idx2class):
@@ -172,8 +173,6 @@ class GroceryTextConverter(object):
             'text_prep': 'text_prep.config.pickle',
             'feat_gen': 'feat_gen.config.pickle',
             'class_map': 'class_map.config.pickle',
-            'extra_nr_feats': 'extra_nr_feats.pickle',
-            'extra_file_ids': 'extra_file_ids.pickle'
         }
         self.text_prep.load(os.path.join(src_dir, config['text_prep']))
         self.feat_gen.load(os.path.join(src_dir, config['feat_gen']))
