@@ -1,0 +1,2 @@
+include Makefile
+recursive-include tgrocery/learner *.c *.cpp *.h Makefile
