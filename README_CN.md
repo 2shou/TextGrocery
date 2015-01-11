@@ -5,13 +5,6 @@ TextGrocery
 
 一个简单而高效的短文本分类工具，基于LibLinear
 
-安装依赖
--------
-
-    $ cd tgrocery/learner 
-    $ make
-
-> 目前仅在Unix系统下测试通过
 
 示例代码
 -------
@@ -36,3 +29,10 @@ education
 ```
 
 更多示例: [sample/](sample/)
+
+安装
+----
+
+    $ pip install tgrocery 
+
+> 目前仅在Unix系统下测试通过

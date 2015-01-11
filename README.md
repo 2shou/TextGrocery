@@ -7,14 +7,6 @@ A simple, efficient short-text classification tool based on LibLinear
 
 Other languages: [中文文档](README_CN.md)
 
-Prepare
--------
-
-    $ cd tgrocery/learner 
-    $ make
-
-> Only test under Unix-based System
-
 Sample Code
 -----------
 
@@ -38,3 +30,10 @@ education
 ```
 
 More examples: [sample/](sample/)
+
+Install
+-------
+
+    $ pip install tgrocery
+
+> Only test under Unix-based System
