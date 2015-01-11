@@ -62,5 +62,5 @@ class Grocery(object):
         self.model.load(self.name)
 
     def __del__(self):
-        if os.path.exists(self.train_svm_file):
+        if self.train_svm_file and os.path.exists(self.train_svm_file):
             os.remove(self.train_svm_file)
