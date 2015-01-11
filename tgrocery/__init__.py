@@ -1,11 +1,14 @@
 from converter import *
 from classifier import *
-from utils import read_text_src
 
 
-# TODO how to handle exception
 class GroceryException(Exception):
     pass
+
+
+class GroceryNotTrainException(GroceryException):
+    def __init__(self):
+        self.message = 'Text model has not been trained.'
 
 
 class Grocery(object):
@@ -13,7 +16,7 @@ class Grocery(object):
         self.name = name
         if custom_tokenize is not None:
             if not hasattr(custom_tokenize, '__call__'):
-                raise GroceryException()
+                raise GroceryException('Tokenize func must be callable.')
         self.custom_tokenize = custom_tokenize
         self.model = None
         self.classifier = None
@@ -24,21 +27,24 @@ class Grocery(object):
 
     def train(self, train_src):
         text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
-        # TODO custom tokenizer
         self.train_svm_file = '%s_train.svm' % self.name
-        # TODO how to realize more elegantly?
         text_converter.convert_text(train_src, output=self.train_svm_file)
+        # default parameter
         model = train(self.train_svm_file, '', '-s 4')
         self.model = GroceryTextModel(text_converter, model)
         return self
 
     def predict(self, single_text):
         if not self.get_load_status():
-            raise GroceryException()
+            raise GroceryNotTrainException()
         return self.model.predict_text(single_text).predicted_y
 
     def test(self, text_src):
-        text_src = read_text_src(text_src)
+        if isinstance(text_src, str):
+            with open(text_src, 'r') as f:
+                text_src = [line.split('\t') for line in f]
+        elif not isinstance(text_src, list):
+            raise TypeError('text_src should be list or str')
         true_y = []
         predicted_y = []
         for line in text_src:
@@ -53,11 +59,10 @@ class Grocery(object):
 
     def save(self):
         if not self.get_load_status():
-            raise GroceryException()
+            raise GroceryNotTrainException()
         self.model.save(self.name, force=True)
 
     def load(self):
-        # TODO how to load new model?
         self.model = GroceryTextModel(self.custom_tokenize)
         self.model.load(self.name)
 

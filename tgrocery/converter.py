@@ -4,8 +4,6 @@ import os
 
 import jieba
 
-from utils import read_text_src
-
 
 __all__ = ['GroceryTextConverter']
 
@@ -150,7 +148,11 @@ class GroceryTextConverter(object):
     def convert_text(self, text_src, output=None):
         if not output:
             output = '%s.svm' % text_src
-        text_src = read_text_src(text_src)
+        if isinstance(text_src, str):
+            with open(text_src, 'r') as f:
+                text_src = [line.split('\t') for line in f]
+        elif not isinstance(text_src, list):
+            raise TypeError('text_src should be list or str')
         with open(output, 'w') as w:
             for line in text_src:
                 try:

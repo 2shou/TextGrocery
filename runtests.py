@@ -1,6 +1,8 @@
 # coding: utf-8
 
 import unittest
+import os
+import shutil
 
 from tgrocery import Grocery
 
@@ -23,6 +25,9 @@ class GroceryTestCase(unittest.TestCase):
         new_grocery.load()
         assert grocery.get_load_status()
         assert grocery.predict('考生必读：新托福写作考试评分标准') == 'education'
+        # cleanup
+        if self.grocery_name and os.path.exists(self.grocery_name):
+            shutil.rmtree(self.grocery_name)
 
 
 if __name__ == 'main':
