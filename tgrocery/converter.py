@@ -34,8 +34,11 @@ class GroceryTextPreProcessor(object):
     def _default_tokenize(text):
         return jieba.cut(text, cut_all=True)
 
-    def preprocess(self, text):
-        tokens = self._default_tokenize(text)
+    def preprocess(self, text, custom_tokenize):
+        if custom_tokenize is not None:
+            tokens = custom_tokenize(text)
+        else:
+            tokens = self._default_tokenize(text)
         ret = []
         for idx, tok in enumerate(tokens):
             if tok not in self.tok2idx:
@@ -126,10 +129,11 @@ class GroceryClassMapping(object):
 
 
 class GroceryTextConverter(object):
-    def __init__(self):
+    def __init__(self, custom_tokenize=None):
         self.text_prep = GroceryTextPreProcessor()
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
+        self.custom_tokenize = custom_tokenize
 
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
@@ -138,7 +142,7 @@ class GroceryTextConverter(object):
         return self.class_map.to_class_name(class_idx)
 
     def to_svm(self, text, class_name=None):
-        feat = self.feat_gen.bigram(self.text_prep.preprocess(text))
+        feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
         if class_name is None:
             return feat
         return feat, self.class_map.to_idx(class_name)

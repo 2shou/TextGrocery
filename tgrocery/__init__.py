@@ -9,12 +9,12 @@ class GroceryException(Exception):
 
 
 class Grocery(object):
-    def __init__(self, name, tokenizer=None):
+    def __init__(self, name, custom_tokenize=None):
         self.name = name
-        if tokenizer is not None:
-            if not hasattr(tokenizer, '__call__'):
+        if custom_tokenize is not None:
+            if not hasattr(custom_tokenize, '__call__'):
                 raise GroceryException()
-            self.tokenizer = tokenizer
+        self.custom_tokenize = custom_tokenize
         self.model = None
         self.classifier = None
         self.train_svm_file = None
@@ -23,7 +23,7 @@ class Grocery(object):
         return self.model is not None
 
     def train(self, train_src):
-        text_converter = GroceryTextConverter()
+        text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
         # TODO custom tokenizer
         self.train_svm_file = '%s_train.svm' % self.name
         # TODO how to realize more elegantly?
@@ -58,7 +58,7 @@ class Grocery(object):
 
     def load(self):
         # TODO how to load new model?
-        self.model = GroceryTextModel()
+        self.model = GroceryTextModel(self.custom_tokenize)
         self.model.load(self.name)
 
     def __del__(self):
