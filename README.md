@@ -31,10 +31,10 @@ Sample Code
 >>> grocery = Grocery('sample')
 # Train from list
 >>> train_src = [
-    ('education', '名师指导托福语法技巧：名词的复数形式'),
-    ('education', '中国高考成绩海外认可 是“狼来了”吗？'),
-    ('sports', '图文：法网孟菲尔斯苦战进16强 孟菲尔斯怒吼'),
-    ('sports', '四川丹棱举行全国长距登山挑战赛 近万人参与')
+    ('education', 'Student debt to cost Britain billions within decades'),
+    ('education', 'Chinese education for TV experiment'),
+    ('sports', 'Middle East and Asia boost investment in top level sports'),
+    ('sports', 'Summit Series look launches HBO Canada sports doc series: Mudhar')
 ]
 >>> grocery.train(train_src)
 # Or train from file
@@ -45,16 +45,16 @@ Sample Code
 >>> new_grocery = Grocery('sample')
 >>> new_grocery.load()
 # Predict
->>> new_grocery.predict('考生必读：新托福写作考试评分标准')
+>>> new_grocery.predict('Abbott government spends $8 million on higher education media blitz')
 education
 # Test from list
 >>> test_src = [
-    ('education', '福建春季公务员考试报名18日截止 2月6日考试'),
-    ('sports', '意甲首轮补赛交战记录:米兰客场8战不败国米10年连胜'),
+    ('education', 'Abbott government spends $8 million on higher education media blitz'),
+    ('sports', 'Middle East and Asia boost investment in top level sports'),
 ]
 >>> new_grocery.test(test_src)
 # Return Accuracy
-0.5
+1.0
 # Or test from file
 >>> new_grocery.test('test_ch.txt')
 # Custom tokenize
