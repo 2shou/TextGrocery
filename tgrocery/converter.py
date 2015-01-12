@@ -146,7 +146,6 @@ class GroceryTextConverter(object):
         return feat, self.class_map.to_idx(class_name)
 
     def convert_text(self, text_src, output=None):
-        # TODO to handle unicode
         if not output:
             output = '%s.svm' % text_src
         if isinstance(text_src, str):

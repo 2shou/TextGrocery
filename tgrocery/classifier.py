@@ -46,6 +46,9 @@ class GroceryTextModel(object):
     def predict_text(self, text):
         if self.svm_model is None:
             raise Exception('This model is not usable because svm model is not given')
+        # process unicode type
+        if isinstance(text, unicode):
+            text = text.encode('utf-8')
         if not isinstance(text, str):
             raise TypeError('The argument should be plain text')
         text = self.text_converter.to_svm(text)
