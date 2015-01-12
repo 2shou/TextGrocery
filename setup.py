@@ -27,7 +27,7 @@ class MakeCommand(install):
 
 setup(
     name='tgrocery',
-    version='0.1.2',
+    version='0.1.3',
     packages=['tgrocery', 'tgrocery.learner', 'tgrocery.learner.liblinear.python'],
     url='https://github.com/2shou/TextGrocery',
     license='BSD',

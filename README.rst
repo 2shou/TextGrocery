@@ -7,22 +7,39 @@ Sample Usage
 ````````````
 .. code:: python
 
-    >> from tgrocery import Grocery
+    >>> from tgrocery import Grocery
     # Create a grocery(don't forget to set a name)
-    >> grocery = Grocery('sample')
+    >>> grocery = Grocery('sample')
     # Train from list
-    >> train_src = [
-        ('education', '名师指导托福语法技巧：名词的复数形式'),
-        ('education', '中国高考成绩海外认可 是“狼来了”吗？'),
-        ('sports', '图文：法网孟菲尔斯苦战进16强 孟菲尔斯怒吼'),
-        ('sports', '四川丹棱举行全国长距登山挑战赛 近万人参与')
+    >>> train_src = [
+        ('education', 'Student debt to cost Britain billions within decades'),
+        ('education', 'Chinese education for TV experiment'),
+        ('sports', 'Middle East and Asia boost investment in top level sports'),
+        ('sports', 'Summit Series look launches HBO Canada sports doc series: Mudhar')
     ]
-    >> grocery.train(train_src)
-    # TrVain from file
-    >> grocery.train('train_ch.txt')
+    >>> grocery.train(train_src)
+    # Or train from file
+    >>> grocery.train('train_ch.txt')
+    # Save model
+    >>> grocery.save()
+    # Load model(the same name as previous)
+    >>> new_grocery = Grocery('sample')
+    >>> new_grocery.load()
     # Predict
-    >> grocery.predict('考生必读：新托福写作考试评分标准')
+    >>> new_grocery.predict('Abbott government spends $8 million on higher education media blitz')
     education
+    # Test from list
+    >>> test_src = [
+        ('education', 'Abbott government spends $8 million on higher education media blitz'),
+        ('sports', 'Middle East and Asia boost investment in top level sports'),
+    ]
+    >>> new_grocery.test(test_src)
+    # Return Accuracy
+    1.0
+    # Or test from file
+    >>> new_grocery.test('test_ch.txt')
+    # Custom tokenize
+    >>> custom_grocery = Grocery('custom', custom_tokenize=list)
 
 Installation
 ````````````
