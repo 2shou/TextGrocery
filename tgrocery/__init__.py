@@ -23,12 +23,12 @@ class Grocery(object):
         self.train_svm_file = None
 
     def get_load_status(self):
-        return self.model is not None
+        return self.model is not None and isinstance(self.model, GroceryTextModel)
 
-    def train(self, train_src):
+    def train(self, train_src, delimiter='\t'):
         text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
         self.train_svm_file = '%s_train.svm' % self.name
-        text_converter.convert_text(train_src, output=self.train_svm_file)
+        text_converter.convert_text(train_src, output=self.train_svm_file, delimiter=delimiter)
         # default parameter
         model = train(self.train_svm_file, '', '-s 4')
         self.model = GroceryTextModel(text_converter, model)
@@ -37,25 +37,12 @@ class Grocery(object):
     def predict(self, single_text):
         if not self.get_load_status():
             raise GroceryNotTrainException()
-        return self.model.predict_text(single_text).predicted_y
+        return self.model.predict_text(single_text)
 
-    def test(self, text_src):
-        if isinstance(text_src, str):
-            with open(text_src, 'r') as f:
-                text_src = [line.split('\t') for line in f]
-        elif not isinstance(text_src, list):
-            raise TypeError('text_src should be list or str')
-        true_y = []
-        predicted_y = []
-        for line in text_src:
-            try:
-                label, text = line
-            except ValueError:
-                continue
-            predicted_y.append(self.predict(text))
-            true_y.append(label)
-        l = len(true_y)
-        return sum([true_y[i] == predicted_y[i] for i in range(l)]) / float(l)
+    def test(self, text_src, delimiter='\t'):
+        if not self.get_load_status():
+            raise GroceryNotTrainException()
+        return GroceryTest(self.model).test(text_src, delimiter)
 
     def save(self):
         if not self.get_load_status():

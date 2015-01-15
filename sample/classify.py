@@ -12,9 +12,14 @@ train_src = [
 ]
 grocery.train(train_src)
 print grocery.get_load_status()
-print grocery.predict('考生必读：新托福写作考试评分标准')
+predict_result = grocery.predict('考生必读：新托福写作考试评分标准')
+print predict_result
+print predict_result.dec_values
+
 test_src = [
     ('education', '福建春季公务员考试报名18日截止 2月6日考试'),
     ('sports', '意甲首轮补赛交战记录:米兰客场8战不败国米10年连胜'),
 ]
-print grocery.test(test_src)
+test_result = grocery.test(test_src)
+print test_result.accuracy_labels
+print test_result.recall_labels

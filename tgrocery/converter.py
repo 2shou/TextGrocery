@@ -3,7 +3,7 @@ import cPickle
 import os
 
 import jieba
-
+from base import *
 
 __all__ = ['GroceryTextConverter']
 
@@ -145,14 +145,10 @@ class GroceryTextConverter(object):
             return feat
         return feat, self.class_map.to_idx(class_name)
 
-    def convert_text(self, text_src, output=None):
+    def convert_text(self, text_src, output=None, delimiter='\t'):
         if not output:
             output = '%s.svm' % text_src
-        if isinstance(text_src, str):
-            with open(text_src, 'r') as f:
-                text_src = [line.split('\t') for line in f]
-        elif not isinstance(text_src, list):
-            raise TypeError('text_src should be list or str')
+        text_src = read_text_src(text_src, delimiter)
         with open(output, 'w') as w:
             for line in text_src:
                 try:

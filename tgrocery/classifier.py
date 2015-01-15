@@ -4,6 +4,7 @@ import shutil
 
 from converter import GroceryTextConverter
 from .learner import *
+from base import *
 
 
 class GroceryTextModel(object):
@@ -59,8 +60,21 @@ class GroceryTextModel(object):
         return GroceryPredictResult(predicted_y=y, dec_values=dec[:self.svm_model.nr_class], labels=labels)
 
 
-class GroceryPredictResult(object):
-    def __init__(self, predicted_y=None, dec_values=None, labels=None):
-        self.predicted_y = predicted_y
-        self.dec_values = dec_values
-        self.labels = labels
+class GroceryTest(object):
+    def __init__(self, model):
+        self.model = model
+
+    def test(self, text_src, delimiter='\t'):
+        text_src = read_text_src(text_src, delimiter)
+        true_y = []
+        predicted_y = []
+        for line in text_src:
+            try:
+                label, text = line
+            except ValueError:
+                continue
+            predicted_y.append(self.model.predict_text(text).predicted_y)
+            true_y.append(label)
+        return GroceryTestResult(true_y, predicted_y)
+
+
