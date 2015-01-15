@@ -2,6 +2,9 @@ from converter import *
 from classifier import *
 
 
+__all__ = ['Grocery']
+
+
 class GroceryException(Exception):
     pass
 
