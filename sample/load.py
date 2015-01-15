@@ -4,7 +4,6 @@ from tgrocery import Grocery
 
 
 # save
-
 grocery = Grocery('test')
 train_src = [
     ('education', '名师指导托福语法技巧：名词的复数形式'),

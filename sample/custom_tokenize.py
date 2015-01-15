@@ -2,6 +2,7 @@
 
 from tgrocery import Grocery
 
+# pass a tokenizer, must be a python func
 custom_grocery = Grocery('custom', custom_tokenize=list)
 train_src = [
     ('education', '名师指导托福语法技巧：名词的复数形式'),
