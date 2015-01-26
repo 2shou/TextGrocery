@@ -145,7 +145,7 @@ class GroceryTextConverter(object):
             return feat
         return feat, self.class_map.to_idx(class_name)
 
-    def convert_text(self, text_src, output=None, delimiter='\t'):
+    def convert_text(self, text_src, delimiter, output=None):
         if not output:
             output = '%s.svm' % text_src
         text_src = read_text_src(text_src, delimiter)

@@ -1,4 +1,4 @@
-def read_text_src(text_src, delimiter='\t'):
+def read_text_src(text_src, delimiter):
     if isinstance(text_src, str):
         with open(text_src, 'r') as f:
             text_src = [line.split(delimiter) for line in f]

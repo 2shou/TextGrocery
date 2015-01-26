@@ -64,7 +64,7 @@ class GroceryTest(object):
     def __init__(self, model):
         self.model = model
 
-    def test(self, text_src, delimiter='\t'):
+    def test(self, text_src, delimiter):
         text_src = read_text_src(text_src, delimiter)
         true_y = []
         predicted_y = []
