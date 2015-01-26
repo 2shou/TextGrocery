@@ -7,21 +7,28 @@ def read_text_src(text_src, delimiter):
     return text_src
 
 
+def draw_table(data, row_labels, column_labels):
+    row_format = '{:<15}' * (len(column_labels) + 1)
+    table_string = '%s\n' % row_format.format('', *column_labels)
+    for row_label, row_data in zip(row_labels, data):
+        table_string += '%s\n' % row_format.format(row_label, *row_data)
+    return table_string
+
+
 class GroceryTestResult(object):
     def __init__(self, true_y, predicted_y):
         self.true_y = true_y
         self.predicted_y = predicted_y
-        self._compute_accuracy()
-        self._compute_accuracy_recall()
+        self._compute_accuracy_overall()
+        self._compute_accuracy_recall_labels()
 
-    def _compute_accuracy(self):
+    def _compute_accuracy_overall(self):
         l = len(self.true_y)
         self.accuracy_overall = sum([self.true_y[i] == self.predicted_y[i] for i in range(l)]) / float(l)
 
-    def _compute_accuracy_recall(self):
+    def _compute_accuracy_recall_labels(self):
         labels = {}
-        for idx, r in enumerate(self.predicted_y):
-            predicted_label = self.predicted_y[idx]
+        for idx, predicted_label in enumerate(self.predicted_y):
             true_label = self.true_y[idx]
             if predicted_label not in labels:
                 labels[predicted_label] = [0, 0, 0]
@@ -43,6 +50,20 @@ class GroceryTestResult(object):
             except ZeroDivisionError:
                 self.recall_labels[key] = float(0)
 
+    @staticmethod
+    def percent(lst):
+        return ['%.2f%%' % l * 100 for l in lst]
+
+    def show_result(self):
+        print draw_table(
+            zip(
+                ['%.2f%%' % (s * 100) for s in self.accuracy_labels.values()],
+                ['%.2f%%' % (s * 100) for s in self.recall_labels.values()]
+            ),
+            self.accuracy_labels.keys(),
+            ('accuracy', 'recall')
+        )
+
     def __str__(self):
         return str(self.accuracy_overall)
 
@@ -54,3 +75,8 @@ class GroceryPredictResult(object):
 
     def __str__(self):
         return self.predicted_y
+
+
+if __name__ == '__main__':
+    table_data = [('0.4', '0.5'), ('0.6', '0.7')]
+    draw_table(table_data, ('sports', 'education'), ('accuracy', 'recall'))

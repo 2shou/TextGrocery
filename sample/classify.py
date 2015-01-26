@@ -15,3 +15,11 @@ print grocery.get_load_status()
 predict_result = grocery.predict('考生必读：新托福写作考试评分标准')
 print predict_result
 print predict_result.dec_values
+
+grocery = Grocery('read_text')
+train_src = '../text_src/train_ch.txt'
+grocery.train(train_src)
+print grocery.get_load_status()
+predict_result = grocery.predict('考生必读：新托福写作考试评分标准')
+print predict_result
+print predict_result.dec_values

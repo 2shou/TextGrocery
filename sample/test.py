@@ -20,3 +20,14 @@ test_src = [
 test_result = grocery.test(test_src)
 print test_result.accuracy_labels
 print test_result.recall_labels
+
+grocery = Grocery('text_src')
+train_src = '../text_src/train_ch.txt'
+grocery.train(train_src)
+print grocery.get_load_status()
+
+test_src = '../text_src/test_ch.txt'
+test_result = grocery.test(test_src)
+print test_result.accuracy_labels
+print test_result.recall_labels
+test_result.show_result()

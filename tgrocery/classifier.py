@@ -76,5 +76,3 @@ class GroceryTest(object):
             predicted_y.append(self.model.predict_text(text).predicted_y)
             true_y.append(label)
         return GroceryTestResult(true_y, predicted_y)
-
-
