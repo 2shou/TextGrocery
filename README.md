@@ -7,7 +7,7 @@ A simple, efficient short-text classification tool based on LibLinear
 
 Embed with [jieba](https://github.com/fxsjy/jieba) as default tokenizer to support Chinese tokenize
 
-Other languages: [中文文档](README_CN.md)
+Other languages: [更详细的中文文档](http://textgrocery.readthedocs.org/zh/latest/index.html)
 
 Performance
 -----------
