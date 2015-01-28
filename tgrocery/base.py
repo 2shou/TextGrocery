@@ -7,14 +7,6 @@ def read_text_src(text_src, delimiter):
     return text_src
 
 
-def draw_table(data, row_labels, column_labels):
-    row_format = '{:<15}' * (len(column_labels) + 1)
-    table_string = '%s\n' % row_format.format('', *column_labels)
-    for row_label, row_data in zip(row_labels, data):
-        table_string += '%s\n' % row_format.format(row_label, *row_data)
-    return table_string
-
-
 class GroceryTestResult(object):
     def __init__(self, true_y, predicted_y):
         self.true_y = true_y
@@ -51,11 +43,15 @@ class GroceryTestResult(object):
                 self.recall_labels[key] = float(0)
 
     @staticmethod
-    def percent(lst):
-        return ['%.2f%%' % l * 100 for l in lst]
+    def draw_table(data, row_labels, column_labels):
+        row_format = '{:<15}' * (len(column_labels) + 1)
+        table_string = '%s\n' % row_format.format('', *column_labels)
+        for row_label, row_data in zip(row_labels, data):
+            table_string += '%s\n' % row_format.format(row_label, *row_data)
+        return table_string
 
     def show_result(self):
-        print draw_table(
+        print self.draw_table(
             zip(
                 ['%.2f%%' % (s * 100) for s in self.accuracy_labels.values()],
                 ['%.2f%%' % (s * 100) for s in self.recall_labels.values()]
