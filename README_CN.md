@@ -3,9 +3,9 @@ TextGrocery
 
 [![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
 
-一个简单而高效的短文本分类工具，基于LibLinear
+一个高效易用的短文本分类工具，基于[LibLinear](http://www.csie.ntu.edu.tw/~cjlin/liblinear)
 
-整合[结巴分词](https://github.com/fxsjy/jieba)作为默认的分词单元，以支持中文分词
+TextGrocery整合了[结巴分词](https://github.com/fxsjy/jieba)作为默认的分词单元，以支持中文的短文本分类
 
 性能
 ----

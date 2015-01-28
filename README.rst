@@ -50,4 +50,4 @@ Installation
 Links
 `````
 
-* `Code on Github <https://github.com/2shou/TextGrocery'>`_
+* `Code on Github <https://github.com/2shou/TextGrocery>`_
