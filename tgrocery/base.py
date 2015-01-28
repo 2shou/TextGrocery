@@ -71,8 +71,3 @@ class GroceryPredictResult(object):
 
     def __str__(self):
         return self.predicted_y
-
-
-if __name__ == '__main__':
-    table_data = [('0.4', '0.5'), ('0.6', '0.7')]
-    draw_table(table_data, ('sports', 'education'), ('accuracy', 'recall'))
