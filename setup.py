@@ -18,8 +18,8 @@ class MakeCommand(install):
 
 util = Extension(
     'tgrocery.learner.util',
-    ['tgrocery/learner/util.c'],
-    include_dirs=['tgrocery/learner/liblinear']
+    [os.path.join('tgrocery', 'learner', 'util.c')],
+    include_dirs=[os.path.join('tgrocery', 'learner', 'liblinear')]
 )
 
 setup(

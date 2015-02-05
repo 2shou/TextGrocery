@@ -53,6 +53,7 @@ SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 	char *idx, *val, *label;
 	struct problem prob;
 	SVMProblem svmprob;
+	struct feature_node* x_space;
 
 	/**
 	 * error_code:
@@ -96,8 +97,8 @@ SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 	errno = 0;
 	prob.y = Malloc(double,prob.l);
 	prob.x = Malloc(struct feature_node *,prob.l);
-	struct feature_node* x_space = Malloc(struct feature_node,elements+prob.l);
-	
+    x_space = Malloc(struct feature_node,elements+prob.l);
+
 	if(errno == ENOMEM)
 	{
 		free(line);
