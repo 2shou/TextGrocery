@@ -1,37 +1,29 @@
-CXX ?= g++
-CC ?= gcc
-CFLAGS = -Wall -Wconversion -O3 -fPIC
-LIBS = blas/blas.a
-SHVER = 1
-OS = $(shell uname)
-#LIBS = -lblas
+#You must ensure nmake.exe, cl.exe, link.exe are in system path.
+#VCVARS32.bat
+#Under dosbox prompt
+#nmake -f Makefile.win
 
-all: train predict
+##########################################
+CXX = cl.exe
+CFLAGS = /nologo /O2 /EHsc /I. /D _WIN32 /D _CRT_SECURE_NO_DEPRECATE
+TARGET = windows
 
-lib: linear.o tron.o blas/blas.a
-	if [ "$(OS)" = "Darwin" ]; then \
-		SHARED_LIB_FLAG="-dynamiclib -Wl,-install_name,liblinear.so.$(SHVER)"; \
-	else \
-		SHARED_LIB_FLAG="-shared -Wl,-soname,liblinear.so.$(SHVER)"; \
-	fi; \
-	$(CXX) $${SHARED_LIB_FLAG} linear.o tron.o blas/blas.a -o liblinear.so.$(SHVER)
+all: $(TARGET)\train.exe $(TARGET)\predict.exe
 
-train: tron.o linear.o train.c blas/blas.a
-	$(CXX) $(CFLAGS) -o train train.c tron.o linear.o $(LIBS)
+$(TARGET)\train.exe: tron.obj linear.obj train.c blas\*.c
+	$(CXX) $(CFLAGS) -Fe$(TARGET)\train.exe tron.obj linear.obj train.c blas\*.c
 
-predict: tron.o linear.o predict.c blas/blas.a
-	$(CXX) $(CFLAGS) -o predict predict.c tron.o linear.o $(LIBS)
+$(TARGET)\predict.exe: tron.obj linear.obj predict.c blas\*.c
+	$(CXX) $(CFLAGS) -Fe$(TARGET)\predict.exe tron.obj linear.obj predict.c blas\*.c
 
-tron.o: tron.cpp tron.h
-	$(CXX) $(CFLAGS) -c -o tron.o tron.cpp
+linear.obj: linear.cpp linear.h
+	$(CXX) $(CFLAGS) -c linear.cpp
 
-linear.o: linear.cpp linear.h
-	$(CXX) $(CFLAGS) -c -o linear.o linear.cpp
+tron.obj: tron.cpp tron.h
+	$(CXX) $(CFLAGS) -c tron.cpp
 
-blas/blas.a: blas/*.c blas/*.h
-	make -C blas OPTFLAGS='$(CFLAGS)' CC='$(CC)';
+lib: linear.cpp linear.h linear.def tron.obj
+	$(CXX) $(CFLAGS) -LD linear.cpp tron.obj blas\*.c -Fe$(TARGET)\liblinear -link -DEF:linear.def 
 
 clean:
-	make -C blas clean
-	make -C matlab clean
-	rm -f *~ tron.o linear.o train predict liblinear.so.$(SHVER)
+	 -erase /Q *.obj

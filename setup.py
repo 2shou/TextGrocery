@@ -4,7 +4,7 @@ import os
 
 from setuptools.command.install import install
 
-from setuptools import setup
+from setuptools import setup, Extension
 
 
 with open('README.rst') as f:
@@ -13,15 +13,7 @@ with open('README.rst') as f:
 
 class MakeCommand(install):
     def run(self):
-        os.system('make')
-        common_dir = 'tgrocery/learner'
-        target_dir = '%s/%s' % (self.build_lib, common_dir)
-        self.mkpath(target_dir)
-        os.system('cp %s/util.so.1 %s' % (common_dir, target_dir))
-        common_dir = 'tgrocery/learner/liblinear'
-        target_dir = '%s/%s' % (self.build_lib, common_dir)
-        self.mkpath(target_dir)
-        os.system('cp %s/liblinear.so.1 %s' % (common_dir, target_dir))
+        os.system('make.bat')
         install.run(self)
 
 

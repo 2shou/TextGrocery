@@ -2,11 +2,21 @@
 
 from ctypes import *
 from ctypes.util import find_library
-from os import path
 import sys
+import os
 
 # For unix the prefix 'lib' is not considered.
-liblinear = CDLL(path.join(path.dirname(path.abspath(__file__)), '../liblinear.so.1'))
+if find_library('linear'):
+	liblinear = CDLL(find_library('linear'))
+elif find_library('liblinear'):
+	liblinear = CDLL(find_library('liblinear'))
+else:
+	if sys.platform == 'win32':
+		liblinear = CDLL(os.path.join(os.path.dirname(__file__),\
+				'../windows/liblinear.dll'))
+	else:
+		liblinear = CDLL(os.path.join(os.path.dirname(__file__),\
+				'../liblinear.so.1'))
 
 # Construct constants
 SOLVER_TYPE = ['L2R_LR', 'L2R_L2LOSS_SVC_DUAL', 'L2R_L2LOSS_SVC', 'L2R_L1LOSS_SVC_DUAL',\
@@ -29,11 +39,8 @@ def fillprototype(f, restype, argtypes):
 
 class feature_node(Structure):
 	_names = ["index", "value"]
-	_types = [c_int64, c_double]
+	_types = [c_int, c_double]
 	_fields_ = genFields(_names, _types)
-
-	def __str__(self):
-		return '%d:%g' % (self.index, self.value)
 
 def gen_feature_nodearray(xi, feature_max=None, issparse=True):
 	if isinstance(xi, dict):
@@ -64,7 +71,7 @@ def gen_feature_nodearray(xi, feature_max=None, issparse=True):
 
 class problem(Structure):
 	_names = ["l", "n", "y", "x", "bias"]
-	_types = [c_int64, c_int64, POINTER(c_double), POINTER(POINTER(feature_node)), c_double]
+	_types = [c_int, c_int, POINTER(c_double), POINTER(POINTER(feature_node)), c_double]
 	_fields_ = genFields(_names, _types)
 
 	def __init__(self, y, x, bias = -1):
@@ -106,7 +113,7 @@ class problem(Structure):
 
 class parameter(Structure):
 	_names = ["solver_type", "eps", "C", "nr_weight", "weight_label", "weight", "p"]
-	_types = [c_int64, c_double, c_double, c_int64, POINTER(c_int64), POINTER(c_double), c_double]
+	_types = [c_int, c_double, c_double, c_int, POINTER(c_int), POINTER(c_double), c_double]
 	_fields_ = genFields(_names, _types)
 
 	def __init__(self, options = None):
@@ -114,15 +121,11 @@ class parameter(Structure):
 			options = ''
 		self.parse_options(options)
 
-	def __str__(self):
-		s = ''
-		attrs = parameter._names + list(self.__dict__.keys())
+	def show(self):
+		attrs = parameter._names + self.__dict__.keys()
 		values = map(lambda attr: getattr(self, attr), attrs) 
 		for attr, val in zip(attrs, values):
-			s += (' %s: %s\n' % (attr, val))
-		s = s.strip()
-
-		return s
+			print(' %s: %s' % (attr, val))
 
 	def set_to_default_values(self):
 		self.solver_type = L2R_L2LOSS_SVC_DUAL
@@ -130,7 +133,7 @@ class parameter(Structure):
 		self.C = 1
 		self.p = 0.1
 		self.nr_weight = 0
-		self.weight_label = (c_int64 * 0)()
+		self.weight_label = (c_int * 0)()
 		self.weight = (c_double * 0)()
 		self.bias = -1
 		self.cross_validation = False
@@ -138,12 +141,7 @@ class parameter(Structure):
 		self.print_func = None
 
 	def parse_options(self, options):
-		if isinstance(options, list):
-			argv = options
-		elif isinstance(options, str):
-			argv = options.split()
-		else:
-			raise TypeError("arg 1 should be a list or a str.")
+		argv = options.split()
 		self.set_to_default_values()
 		self.print_func = cast(None, PRINT_STRING_FUN)
 		weight_label = []
@@ -185,7 +183,7 @@ class parameter(Structure):
 			i += 1
 
 		liblinear.set_print_string_function(self.print_func)
-		self.weight_label = (c_int64*self.nr_weight)()
+		self.weight_label = (c_int*self.nr_weight)()
 		self.weight = (c_double*self.nr_weight)()
 		for i in range(self.nr_weight): 
 			self.weight[i] = weight[i]
@@ -205,7 +203,7 @@ class parameter(Structure):
 
 class model(Structure):
 	_names = ["param", "nr_class", "nr_feature", "w", "label", "bias"]
-	_types = [parameter, c_int64, c_int64, POINTER(c_double), POINTER(c_int64), c_double]
+	_types = [parameter, c_int, c_int, POINTER(c_double), POINTER(c_int), c_double]
 	_fields_ = genFields(_names, _types)
 
 	def __init__(self):
@@ -224,7 +222,7 @@ class model(Structure):
 
 	def get_labels(self):
 		nr_class = self.get_nr_class()
-		labels = (c_int64 * nr_class)()
+		labels = (c_int * nr_class)()
 		liblinear.get_labels(self, labels)
 		return labels[:nr_class]
 
@@ -244,22 +242,24 @@ def toPyModel(model_ptr):
 	return m
 
 fillprototype(liblinear.train, POINTER(model), [POINTER(problem), POINTER(parameter)])
-fillprototype(liblinear.cross_validation, None, [POINTER(problem), POINTER(parameter), c_int64, POINTER(c_double)])
+fillprototype(liblinear.cross_validation, None, [POINTER(problem), POINTER(parameter), c_int, POINTER(c_double)])
 
 fillprototype(liblinear.predict_values, c_double, [POINTER(model), POINTER(feature_node), POINTER(c_double)])
 fillprototype(liblinear.predict, c_double, [POINTER(model), POINTER(feature_node)])
 fillprototype(liblinear.predict_probability, c_double, [POINTER(model), POINTER(feature_node), POINTER(c_double)])
 
-fillprototype(liblinear.save_model, c_int64, [c_char_p, POINTER(model)])
+fillprototype(liblinear.save_model, c_int, [c_char_p, POINTER(model)])
 fillprototype(liblinear.load_model, POINTER(model), [c_char_p])
 
-fillprototype(liblinear.get_nr_feature, c_int64, [POINTER(model)])
-fillprototype(liblinear.get_nr_class, c_int64, [POINTER(model)])
-fillprototype(liblinear.get_labels, None, [POINTER(model), POINTER(c_int64)])
+fillprototype(liblinear.get_nr_feature, c_int, [POINTER(model)])
+fillprototype(liblinear.get_nr_class, c_int, [POINTER(model)])
+fillprototype(liblinear.get_labels, None, [POINTER(model), POINTER(c_int)])
 
 fillprototype(liblinear.free_model_content, None, [POINTER(model)])
 fillprototype(liblinear.free_and_destroy_model, None, [POINTER(POINTER(model))])
 fillprototype(liblinear.destroy_param, None, [POINTER(parameter)])
 fillprototype(liblinear.check_parameter, c_char_p, [POINTER(problem), POINTER(parameter)])
-fillprototype(liblinear.check_probability_model, c_int64, [POINTER(model)])
+fillprototype(liblinear.check_probability_model, c_int, [POINTER(model)])
 fillprototype(liblinear.set_print_string_function, None, [CFUNCTYPE(None, c_char_p)])
+
+
