@@ -2,5 +2,6 @@
 cd "tgrocery\learner\liblinear"
 mkdir "windows"
 call "vcvars32.bat"
-nmake.exe /f Makefile all lib clean
-copy "tgrocery\learner\liblinear\windows\liblinear.dll" "C:\windows\system32"
+nmake.exe /f Makefile lib
+nmake.exe /f Makefile clean
+copy "windows\liblinear.dll" "C:\windows\system32"

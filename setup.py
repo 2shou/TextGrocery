@@ -16,6 +16,11 @@ class MakeCommand(install):
         os.system('make.bat')
         install.run(self)
 
+util = Extension(
+    'tgrocery.learner.util',
+    ['tgrocery/learner/util.c'],
+    include_dirs=['tgrocery/learner/liblinear']
+)
 
 setup(
     name='tgrocery',
@@ -29,5 +34,6 @@ setup(
     long_description=LONG_DESCRIPTION,
     install_requires=['jieba'],
     keywords='text classification svm liblinear libshorttext',
-    cmdclass={'install': MakeCommand}
+    cmdclass={'install': MakeCommand},
+    ext_modules=[util]
 )
