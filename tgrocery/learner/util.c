@@ -390,4 +390,14 @@ void merge_problems(const char *srcs[], const int num_srcs, INT64* offsets, cons
 		freeSVMProblem(svmproblems[i]);
 }
 
+#include "Python.h"
+static PyMethodDef utilmethods[] = {
+    {"read_problem", read_problem, METH_VARARGS, ""},
+    {NULL, NULL}
+};
 
+PyMODINIT_FUNC
+initutil(void)
+{
+    Py_InitModule("util", utilmethods);
+}
