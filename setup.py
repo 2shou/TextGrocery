@@ -3,7 +3,6 @@
 import os
 
 from setuptools.command.install import install
-
 from setuptools import setup, Extension
 
 
@@ -14,7 +13,12 @@ with open('README.rst') as f:
 class MakeCommand(install):
     def run(self):
         os.system('make.bat')
+        source_dir = os.path.join('tgrocery', 'learner', 'liblinear')
+        target_dir = os.path.join(self.build_lib, 'tgrocery', 'learner', 'liblinear')
+        os.system('mkdir %s' % target_dir)
+        os.system('copy %s\liblinear.dll %s' % (source_dir, target_dir))
         install.run(self)
+
 
 util = Extension(
     'tgrocery.learner.util',
