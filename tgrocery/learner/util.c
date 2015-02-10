@@ -42,7 +42,6 @@ void freeSVMProblem(SVMProblem svmprob) {
 	if (svmprob.x_space!=NULL) free(svmprob.x_space);
 }
 
-
 // read in a problem (in libsvm format)
 SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 {
@@ -142,8 +141,8 @@ SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 				break;
 
 			errno = 0;
-			// strtoll doesn't work under 32-bit, replace with strtol
-			x_space[j].index = (INT64)strtoll(idx,&endptr,10);
+			// Microsoft standard C library doesn't contain a definition for strtoll(), which must be replaced with _strtoi64()
+			x_space[j].index = (INT64)_strtoi64(idx,&endptr,10);
 			if(endptr == idx || errno != 0 || *endptr != '\0' || x_space[j].index <= inst_max_index)
 			{	
 				free(line);

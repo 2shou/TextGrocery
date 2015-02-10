@@ -6,3 +6,4 @@ nmake.exe /f Makefile clean
 cd "liblinear"
 nmake.exe /f Makefile lib
 nmake.exe /f Makefile clean
+cd "../../.."
