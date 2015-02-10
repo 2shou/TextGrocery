@@ -6,7 +6,7 @@
 ##########################################
 CXX = cl.exe
 CFLAGS = /nologo /O2 /EHsc /I. /D _WIN32 /D _CRT_SECURE_NO_DEPRECATE
-TARGET = windows
+TARGET = .
 
 all: $(TARGET)\train.exe $(TARGET)\predict.exe
 

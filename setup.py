@@ -2,7 +2,7 @@
 
 import os
 
-from setuptools.command.install import install
+from setuptools.command.install import install as Install
 from setuptools import setup, Extension
 
 
@@ -10,14 +10,15 @@ with open('README.rst') as f:
     LONG_DESCRIPTION = f.read()
 
 
-class MakeCommand(install):
+class MakeCommand(Install):
     def run(self):
         os.system('make.bat')
-        source_dir = os.path.join('tgrocery', 'learner', 'liblinear')
-        target_dir = os.path.join(self.build_lib, 'tgrocery', 'learner', 'liblinear')
-        os.system('mkdir %s' % target_dir)
-        os.system('copy %s\liblinear.dll %s' % (source_dir, target_dir))
-        install.run(self)
+        source_dir = os.path.join('tgrocery', 'learner')
+        target_dir = os.path.join(self.build_lib, 'tgrocery', 'learner')
+        os.system('mkdir %s\liblinear' % target_dir)
+        os.system('copy %s\util.dll %s' % (source_dir, target_dir))
+        os.system('copy %s\liblinear\liblinear.dll %s\liblinear' % (source_dir, target_dir))
+        Install.run(self)
 
 
 util = Extension(
@@ -39,5 +40,5 @@ setup(
     install_requires=['jieba'],
     keywords='text classification svm liblinear libshorttext',
     cmdclass={'install': MakeCommand},
-    ext_modules=[util]
+    # ext_modules=[util]
 )

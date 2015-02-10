@@ -115,6 +115,7 @@ SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 		readline(fp);
 		prob.x[i] = &x_space[j];
 		label = strtok(line," \t\n");
+		printf(line);
 		if(label == NULL) // empty line
 		{	
 			free(line);
@@ -141,6 +142,7 @@ SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 				break;
 
 			errno = 0;
+			// strtoll doesn't work under 32-bit, replace with strtol
 			x_space[j].index = (INT64)strtoll(idx,&endptr,10);
 			if(endptr == idx || errno != 0 || *endptr != '\0' || x_space[j].index <= inst_max_index)
 			{	
@@ -195,15 +197,72 @@ SVMProblem read_problem(const char *filename, double bias, INT64 *error_code)
 	return svmprob;
 }
 
-#include "Python.h"
-static PyMethodDef utilmethods[] = {
-    {"read_problem", read_problem, METH_VARARGS, ""},
-    {"freeSVMProblem", freeSVMProblem, METH_VARARGS, ""},
-    {NULL, NULL}
-};
-
-PyMODINIT_FUNC
-initutil(void)
+void normalize(struct problem *prob, int binary, int norm, int tf, int idf, double* idf_val)
 {
-    Py_InitModule("util", utilmethods);
+	INT64 i;
+
+	for(i = 0; i < prob->l; ++i)
+	{
+		struct feature_node* xi;
+
+		if(binary)
+		{
+			xi = prob->x[i];
+			while(xi->index != -1)
+			{
+				xi->value = xi->value != 0;
+				++xi;
+			}
+		}
+
+		if(tf)
+		{
+			double norm = 0;
+			xi = prob->x[i];
+			while(xi->index != -1)
+			{
+				norm += xi->value;
+				++xi;
+			}
+
+			xi = prob->x[i];
+			if(norm != 0)
+				while(xi->index != -1)
+				{
+					xi->value /= norm;
+					++xi;
+				}
+		}
+
+		if(idf)
+		{
+			xi = prob->x[i];
+			while(xi->index != -1)
+			{
+				xi->value *= idf_val[xi->index-1];
+				++xi;
+			}
+		}
+
+		if(norm)
+		{
+			double norm = 0;
+			xi = prob->x[i];
+			while(xi->index != -1)
+			{
+				norm += xi->value * xi->value;
+				++xi;
+			}
+
+			norm = sqrt(norm);
+
+			xi = prob->x[i];
+			if(norm != 0)
+				while(xi->index != -1)
+				{
+					xi->value /= norm;
+					++xi;
+				}
+		}
+	}
 }

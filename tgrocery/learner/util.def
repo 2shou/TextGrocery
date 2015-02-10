@@ -1,0 +1,5 @@
+LIBRARY util
+EXPORTS
+	read_problem	@1
+	freeSVMProblem	@2
+	normalize   @3

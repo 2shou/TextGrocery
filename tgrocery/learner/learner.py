@@ -18,7 +18,7 @@ else:
     import cPickle
     from itertools import izip
 
-util = CDLL(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'util.so.1'))
+util = CDLL(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'util.dll'))
 
 LIBLINEAR_HOME = os.environ.get('LIBLINEAR_HOME') or os.path.dirname(os.path.abspath(__file__)) + '/liblinear'
 sys.path = [LIBLINEAR_HOME, LIBLINEAR_HOME + '/python'] + sys.path
@@ -73,10 +73,9 @@ def read_SVMProblem(src):
 
     raise ValueError("Wrong file format in line " + str(status) + ".")
 
-
 fillprototype(util.read_problem, SVMProblem, [c_char_p, c_double, POINTER(c_int64)])
 fillprototype(util.freeSVMProblem, None, [SVMProblem])
-fillprototype(util.compute_idf, c_double, [POINTER(liblinear.problem), POINTER(c_double)])
+# fillprototype(util.compute_idf, c_double, [POINTER(liblinear.problem), POINTER(c_double)])
 fillprototype(util.normalize, None, [POINTER(liblinear.problem), c_int, c_int, c_int, c_int, POINTER(c_double)])
 
 

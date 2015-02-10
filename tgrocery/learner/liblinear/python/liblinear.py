@@ -13,7 +13,7 @@ elif find_library('liblinear'):
 else:
 	if sys.platform == 'win32':
 		liblinear = CDLL(os.path.join(os.path.dirname(__file__),\
-				'../windows/liblinear.dll'))
+				'../liblinear.dll'))
 	else:
 		liblinear = CDLL(os.path.join(os.path.dirname(__file__),\
 				'../liblinear.so.1'))
