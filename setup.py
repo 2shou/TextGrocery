@@ -27,7 +27,7 @@ class MakeCommand(install):
 
 setup(
     name='tgrocery',
-    version='0.1.3',
+    version='0.2.0',
     packages=['tgrocery', 'tgrocery.learner', 'tgrocery.learner.liblinear.python'],
     url='https://github.com/2shou/TextGrocery',
     license='BSD',
@@ -35,7 +35,7 @@ setup(
     author_email='gavin.zgz@gmail.com',
     description='A simple short-text classification tool based on LibLinear',
     long_description=LONG_DESCRIPTION,
-    install_requires=['jieba'],
+    install_requires=['numpy', 'jieba'],
     keywords='text classification svm liblinear libshorttext',
     cmdclass={'install': MakeCommand}
 )
