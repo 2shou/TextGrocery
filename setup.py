@@ -1,34 +1,23 @@
 # coding: utf-8
 
-import os
-
-from setuptools.command.install import install
-
-from setuptools import setup
-
 
 with open('README.rst') as f:
     LONG_DESCRIPTION = f.read()
 
 
-class MakeCommand(install):
-    def run(self):
-        os.system('make')
-        common_dir = 'tgrocery/learner'
-        target_dir = '%s/%s' % (self.build_lib, common_dir)
-        self.mkpath(target_dir)
-        os.system('cp %s/util.so.1 %s' % (common_dir, target_dir))
-        common_dir = 'tgrocery/learner/liblinear'
-        target_dir = '%s/%s' % (self.build_lib, common_dir)
-        self.mkpath(target_dir)
-        os.system('cp %s/liblinear.so.1 %s' % (common_dir, target_dir))
-        install.run(self)
+def configuration(parent_package='', top_path=None):
+    from numpy.distutils.misc_util import Configuration
+
+    config = Configuration(None, parent_package, top_path)
+    config.add_subpackage('tgrocery')
+    return config
 
 
-setup(
+from numpy.distutils.core import setup
+
+metadata = dict(
     name='tgrocery',
     version='0.2.0',
-    packages=['tgrocery', 'tgrocery.learner', 'tgrocery.learner.liblinear.python'],
     url='https://github.com/2shou/TextGrocery',
     license='BSD',
     author='2shou',
@@ -37,5 +26,8 @@ setup(
     long_description=LONG_DESCRIPTION,
     install_requires=['numpy', 'jieba'],
     keywords='text classification svm liblinear libshorttext',
-    cmdclass={'install': MakeCommand}
 )
+
+metadata['configuration'] = configuration
+
+setup(**metadata)

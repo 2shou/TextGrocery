@@ -758,9 +758,7 @@ def _fit_liblinear(X, y, C, fit_intercept, intercept_scaling, class_weight,
     solver_type = _get_liblinear_solver_type(multi_class, penalty, loss, dual)
     raw_coef_, n_iter_  = liblinear.train_wrap(
         X, y_ind, sp.isspmatrix(X), solver_type, tol, bias, C,
-        class_weight_, max_iter, rnd.randint(np.iinfo('i').max),
-        epsilon
-        )
+        class_weight_, max_iter, epsilon)
     # Regarding rnd.randint(..) in the above signature:
     # seed for srand in range [0..INT_MAX); due to limitations in Numpy
     # on 32-bit platforms, we can't get to the UINT_MAX limit that

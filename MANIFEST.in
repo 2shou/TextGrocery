@@ -1,2 +1,1 @@
-include Makefile
-recursive-include tgrocery/learner *.c *.cpp *.h Makefile
+recursive-include tgrocery *.c *.h *.pyx *.pxd *.pxi

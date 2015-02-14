@@ -224,8 +224,8 @@ void __Pyx_call_destructor(T* x) {
 #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
-#define __PYX_HAVE__sklearn__svm__liblinear
-#define __PYX_HAVE_API__sklearn__svm__liblinear
+#define __PYX_HAVE__tgrocery__svm__liblinear
+#define __PYX_HAVE_API__tgrocery__svm__liblinear
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -436,7 +436,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "sklearn/svm/liblinear.pyx",
+  "tgrocery/svm/liblinear.pyx",
   "__init__.pxd",
   "type.pxd",
 };
@@ -1065,18 +1065,18 @@ static PyTypeObject *__pyx_ptype_5numpy_ndarray = 0;
 static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, char *, char *, int *); /*proto*/
 
-/* Module declarations from 'sklearn.svm.liblinear' */
+/* Module declarations from 'tgrocery.svm.liblinear' */
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t = { "float64_t", NULL, sizeof(__pyx_t_5numpy_float64_t), { 0 }, 0, 'R', 0, 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t = { "int32_t", NULL, sizeof(__pyx_t_5numpy_int32_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_int32_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_int32_t), 0 };
-#define __Pyx_MODULE_NAME "sklearn.svm.liblinear"
-int __pyx_module_is_main_sklearn__svm__liblinear = 0;
+#define __Pyx_MODULE_NAME "tgrocery.svm.liblinear"
+int __pyx_module_is_main_tgrocery__svm__liblinear = 0;
 
-/* Implementation of 'sklearn.svm.liblinear' */
+/* Implementation of 'tgrocery.svm.liblinear' */
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_RuntimeError;
-static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyArrayObject *__pyx_v_Y, int __pyx_v_is_sparse, int __pyx_v_solver_type, double __pyx_v_eps, double __pyx_v_bias, double __pyx_v_C, PyArrayObject *__pyx_v_class_weight, int __pyx_v_max_iter, unsigned int __pyx_v_random_seed, double __pyx_v_epsilon); /* proto */
-static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_2set_verbosity_wrap(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_verbosity); /* proto */
+static PyObject *__pyx_pf_7tgrocery_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyArrayObject *__pyx_v_Y, int __pyx_v_is_sparse, int __pyx_v_solver_type, double __pyx_v_eps, double __pyx_v_bias, double __pyx_v_C, PyArrayObject *__pyx_v_class_weight, int __pyx_v_max_iter, unsigned int __pyx_v_random_seed, double __pyx_v_epsilon); /* proto */
+static PyObject *__pyx_pf_7tgrocery_3svm_9liblinear_2set_verbosity_wrap(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_verbosity); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static char __pyx_k_B[] = "B";
@@ -1140,9 +1140,9 @@ static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_class_weight[] = "class_weight";
 static char __pyx_k_class_weight_label[] = "class_weight_label";
 static char __pyx_k_set_verbosity_wrap[] = "set_verbosity_wrap";
-static char __pyx_k_sklearn_svm_liblinear[] = "sklearn.svm.liblinear";
+static char __pyx_k_tgrocery_svm_liblinear[] = "tgrocery.svm.liblinear";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static char __pyx_k_home_fp985994_dev_scikit_learn[] = "/home/fp985994/dev/scikit-learn/sklearn/svm/liblinear.pyx";
+static char __pyx_k_home_fp985994_dev_scikit_learn[] = "/home/fp985994/dev/scikit-learn/tgrocery/svm/liblinear.pyx";
 static char __pyx_k_Wrapper_for_liblinear_Author_fa[] = "\nWrapper for liblinear\n\nAuthor: fabian.pedregosa@inria.fr\n";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
@@ -1193,7 +1193,7 @@ static PyObject *__pyx_n_s_random_seed;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_set_verbosity_wrap;
 static PyObject *__pyx_n_s_shape;
-static PyObject *__pyx_n_s_sklearn_svm_liblinear;
+static PyObject *__pyx_n_s_tgrocery_svm_liblinear;
 static PyObject *__pyx_n_s_solver_type;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_train_wrap;
@@ -1213,7 +1213,7 @@ static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_codeobj__8;
 static PyObject *__pyx_codeobj__10;
 
-/* "sklearn/svm/liblinear.pyx":14
+/* "tgrocery/svm/liblinear.pyx":14
  * 
  * 
  * def train_wrap(X, np.ndarray[np.float64_t,   ndim=1, mode='c'] Y,             # <<<<<<<<<<<<<<
@@ -1222,9 +1222,9 @@ static PyObject *__pyx_codeobj__10;
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_1train_wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7sklearn_3svm_9liblinear_1train_wrap = {"train_wrap", (PyCFunction)__pyx_pw_7sklearn_3svm_9liblinear_1train_wrap, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_1train_wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7tgrocery_3svm_9liblinear_1train_wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7tgrocery_3svm_9liblinear_1train_wrap = {"train_wrap", (PyCFunction)__pyx_pw_7tgrocery_3svm_9liblinear_1train_wrap, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7tgrocery_3svm_9liblinear_1train_wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_X = 0;
   PyArrayObject *__pyx_v_Y = 0;
   int __pyx_v_is_sparse;
@@ -1353,13 +1353,13 @@ static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_1train_wrap(PyObject *__pyx_s
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("train_wrap", 1, 11, 11, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("sklearn.svm.liblinear.train_wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("tgrocery.svm.liblinear.train_wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Y), __pyx_ptype_5numpy_ndarray, 1, "Y", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_class_weight), __pyx_ptype_5numpy_ndarray, 1, "class_weight", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_7sklearn_3svm_9liblinear_train_wrap(__pyx_self, __pyx_v_X, __pyx_v_Y, __pyx_v_is_sparse, __pyx_v_solver_type, __pyx_v_eps, __pyx_v_bias, __pyx_v_C, __pyx_v_class_weight, __pyx_v_max_iter, __pyx_v_random_seed, __pyx_v_epsilon);
+  __pyx_r = __pyx_pf_7tgrocery_3svm_9liblinear_train_wrap(__pyx_self, __pyx_v_X, __pyx_v_Y, __pyx_v_is_sparse, __pyx_v_solver_type, __pyx_v_eps, __pyx_v_bias, __pyx_v_C, __pyx_v_class_weight, __pyx_v_max_iter, __pyx_v_random_seed, __pyx_v_epsilon);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1370,7 +1370,7 @@ static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_1train_wrap(PyObject *__pyx_s
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyArrayObject *__pyx_v_Y, int __pyx_v_is_sparse, int __pyx_v_solver_type, double __pyx_v_eps, double __pyx_v_bias, double __pyx_v_C, PyArrayObject *__pyx_v_class_weight, int __pyx_v_max_iter, unsigned int __pyx_v_random_seed, double __pyx_v_epsilon) {
+static PyObject *__pyx_pf_7tgrocery_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_X, PyArrayObject *__pyx_v_Y, int __pyx_v_is_sparse, int __pyx_v_solver_type, double __pyx_v_eps, double __pyx_v_bias, double __pyx_v_C, PyArrayObject *__pyx_v_class_weight, int __pyx_v_max_iter, unsigned int __pyx_v_random_seed, double __pyx_v_epsilon) {
   struct parameter *__pyx_v_param;
   struct problem *__pyx_v_problem;
   struct model *__pyx_v_model;
@@ -1446,7 +1446,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   __pyx_pybuffernd_class_weight.diminfo[0].strides = __pyx_pybuffernd_class_weight.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_class_weight.diminfo[0].shape = __pyx_pybuffernd_class_weight.rcbuffer->pybuffer.shape[0];
 
-  /* "sklearn/svm/liblinear.pyx":24
+  /* "tgrocery/svm/liblinear.pyx":24
  *     cdef int len_w
  * 
  *     if is_sparse:             # <<<<<<<<<<<<<<
@@ -1456,7 +1456,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_t_1 = (__pyx_v_is_sparse != 0);
   if (__pyx_t_1) {
 
-    /* "sklearn/svm/liblinear.pyx":26
+    /* "tgrocery/svm/liblinear.pyx":26
  *     if is_sparse:
  *         problem = csr_set_problem(
  *                 (<np.ndarray[np.float64_t, ndim=1, mode='c']>X.data).data,             # <<<<<<<<<<<<<<
@@ -1466,7 +1466,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_data); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
 
-    /* "sklearn/svm/liblinear.pyx":27
+    /* "tgrocery/svm/liblinear.pyx":27
  *         problem = csr_set_problem(
  *                 (<np.ndarray[np.float64_t, ndim=1, mode='c']>X.data).data,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indices).shape,             # <<<<<<<<<<<<<<
@@ -1476,7 +1476,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_indices); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
 
-    /* "sklearn/svm/liblinear.pyx":28
+    /* "tgrocery/svm/liblinear.pyx":28
  *                 (<np.ndarray[np.float64_t, ndim=1, mode='c']>X.data).data,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indices).shape,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indices).data,             # <<<<<<<<<<<<<<
@@ -1486,7 +1486,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_indices); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
 
-    /* "sklearn/svm/liblinear.pyx":29
+    /* "tgrocery/svm/liblinear.pyx":29
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indices).shape,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indices).data,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indptr).shape,             # <<<<<<<<<<<<<<
@@ -1496,7 +1496,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_indptr); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
 
-    /* "sklearn/svm/liblinear.pyx":30
+    /* "tgrocery/svm/liblinear.pyx":30
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indices).data,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indptr).shape,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indptr).data,             # <<<<<<<<<<<<<<
@@ -1506,7 +1506,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_X, __pyx_n_s_indptr); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
 
-    /* "sklearn/svm/liblinear.pyx":31
+    /* "tgrocery/svm/liblinear.pyx":31
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indptr).shape,
  *                 (<np.ndarray[np.int32_t,   ndim=1, mode='c']>X.indptr).data,
  *                 Y.data, (<np.int32_t>X.shape[1]), bias)             # <<<<<<<<<<<<<<
@@ -1521,7 +1521,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_t_9 = __Pyx_PyInt_As_npy_int32(__pyx_t_8); if (unlikely((__pyx_t_9 == (npy_int32)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-    /* "sklearn/svm/liblinear.pyx":25
+    /* "tgrocery/svm/liblinear.pyx":25
  * 
  *     if is_sparse:
  *         problem = csr_set_problem(             # <<<<<<<<<<<<<<
@@ -1538,7 +1538,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   /*else*/ {
 
-    /* "sklearn/svm/liblinear.pyx":33
+    /* "tgrocery/svm/liblinear.pyx":33
  *                 Y.data, (<np.int32_t>X.shape[1]), bias)
  *     else:
  *         problem = set_problem(             # <<<<<<<<<<<<<<
@@ -1549,7 +1549,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   __pyx_L3:;
 
-  /* "sklearn/svm/liblinear.pyx":40
+  /* "tgrocery/svm/liblinear.pyx":40
  * 
  *     cdef np.ndarray[np.int32_t, ndim=1, mode='c'] \
  *         class_weight_label = np.arange(class_weight.shape[0], dtype=np.intc)             # <<<<<<<<<<<<<<
@@ -1596,7 +1596,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_v_class_weight_label = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "sklearn/svm/liblinear.pyx":41
+  /* "tgrocery/svm/liblinear.pyx":41
  *     cdef np.ndarray[np.int32_t, ndim=1, mode='c'] \
  *         class_weight_label = np.arange(class_weight.shape[0], dtype=np.intc)
  *     param = set_parameter(solver_type, eps, C, class_weight.shape[0],             # <<<<<<<<<<<<<<
@@ -1605,7 +1605,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   __pyx_v_param = set_parameter(__pyx_v_solver_type, __pyx_v_eps, __pyx_v_C, (__pyx_v_class_weight->dimensions[0]), __pyx_v_class_weight_label->data, __pyx_v_class_weight->data, __pyx_v_max_iter, __pyx_v_random_seed, __pyx_v_epsilon);
 
-  /* "sklearn/svm/liblinear.pyx":45
+  /* "tgrocery/svm/liblinear.pyx":45
  *                           max_iter, random_seed, epsilon)
  * 
  *     error_msg = check_parameter(problem, param)             # <<<<<<<<<<<<<<
@@ -1614,7 +1614,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   __pyx_v_error_msg = check_parameter(__pyx_v_problem, __pyx_v_param);
 
-  /* "sklearn/svm/liblinear.pyx":46
+  /* "tgrocery/svm/liblinear.pyx":46
  * 
  *     error_msg = check_parameter(problem, param)
  *     if error_msg:             # <<<<<<<<<<<<<<
@@ -1624,7 +1624,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_t_1 = (__pyx_v_error_msg != 0);
   if (__pyx_t_1) {
 
-    /* "sklearn/svm/liblinear.pyx":47
+    /* "tgrocery/svm/liblinear.pyx":47
  *     error_msg = check_parameter(problem, param)
  *     if error_msg:
  *         free_problem(problem)             # <<<<<<<<<<<<<<
@@ -1633,7 +1633,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
     free_problem(__pyx_v_problem);
 
-    /* "sklearn/svm/liblinear.pyx":48
+    /* "tgrocery/svm/liblinear.pyx":48
  *     if error_msg:
  *         free_problem(problem)
  *         free_parameter(param)             # <<<<<<<<<<<<<<
@@ -1642,7 +1642,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
     free_parameter(__pyx_v_param);
 
-    /* "sklearn/svm/liblinear.pyx":49
+    /* "tgrocery/svm/liblinear.pyx":49
  *         free_problem(problem)
  *         free_parameter(param)
  *         raise ValueError(error_msg)             # <<<<<<<<<<<<<<
@@ -1664,7 +1664,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "sklearn/svm/liblinear.pyx":52
+  /* "tgrocery/svm/liblinear.pyx":52
  * 
  *     # early return
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -1678,7 +1678,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
       #endif
       /*try:*/ {
 
-        /* "sklearn/svm/liblinear.pyx":53
+        /* "tgrocery/svm/liblinear.pyx":53
  *     # early return
  *     with nogil:
  *         model = train(problem, param)             # <<<<<<<<<<<<<<
@@ -1688,7 +1688,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
         __pyx_v_model = train(__pyx_v_problem, __pyx_v_param);
       }
 
-      /* "sklearn/svm/liblinear.pyx":52
+      /* "tgrocery/svm/liblinear.pyx":52
  * 
  *     # early return
  *     with nogil:             # <<<<<<<<<<<<<<
@@ -1706,7 +1706,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
       }
   }
 
-  /* "sklearn/svm/liblinear.pyx":57
+  /* "tgrocery/svm/liblinear.pyx":57
  *     # coef matrix holder created as fortran since that's what's used in liblinear
  *     cdef np.ndarray[np.float64_t, ndim=2, mode='fortran'] w
  *     cdef int nr_class = get_nr_class(model)             # <<<<<<<<<<<<<<
@@ -1715,7 +1715,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   __pyx_v_nr_class = get_nr_class(__pyx_v_model);
 
-  /* "sklearn/svm/liblinear.pyx":59
+  /* "tgrocery/svm/liblinear.pyx":59
  *     cdef int nr_class = get_nr_class(model)
  * 
  *     cdef int labels_ = nr_class             # <<<<<<<<<<<<<<
@@ -1724,7 +1724,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   __pyx_v_labels_ = __pyx_v_nr_class;
 
-  /* "sklearn/svm/liblinear.pyx":60
+  /* "tgrocery/svm/liblinear.pyx":60
  * 
  *     cdef int labels_ = nr_class
  *     if nr_class == 2:             # <<<<<<<<<<<<<<
@@ -1734,7 +1734,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_t_1 = ((__pyx_v_nr_class == 2) != 0);
   if (__pyx_t_1) {
 
-    /* "sklearn/svm/liblinear.pyx":61
+    /* "tgrocery/svm/liblinear.pyx":61
  *     cdef int labels_ = nr_class
  *     if nr_class == 2:
  *         labels_ = 1             # <<<<<<<<<<<<<<
@@ -1746,7 +1746,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   __pyx_L8:;
 
-  /* "sklearn/svm/liblinear.pyx":62
+  /* "tgrocery/svm/liblinear.pyx":62
  *     if nr_class == 2:
  *         labels_ = 1
  *     cdef np.ndarray[np.int32_t, ndim=1, mode='c'] n_iter = np.zeros(labels_, dtype=np.intc)             # <<<<<<<<<<<<<<
@@ -1793,7 +1793,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_v_n_iter = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "sklearn/svm/liblinear.pyx":63
+  /* "tgrocery/svm/liblinear.pyx":63
  *         labels_ = 1
  *     cdef np.ndarray[np.int32_t, ndim=1, mode='c'] n_iter = np.zeros(labels_, dtype=np.intc)
  *     get_n_iter(model, <int *>n_iter.data)             # <<<<<<<<<<<<<<
@@ -1802,7 +1802,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   get_n_iter(__pyx_v_model, ((int *)__pyx_v_n_iter->data));
 
-  /* "sklearn/svm/liblinear.pyx":65
+  /* "tgrocery/svm/liblinear.pyx":65
  *     get_n_iter(model, <int *>n_iter.data)
  * 
  *     cdef int nr_feature = get_nr_feature(model)             # <<<<<<<<<<<<<<
@@ -1811,7 +1811,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   __pyx_v_nr_feature = get_nr_feature(__pyx_v_model);
 
-  /* "sklearn/svm/liblinear.pyx":66
+  /* "tgrocery/svm/liblinear.pyx":66
  * 
  *     cdef int nr_feature = get_nr_feature(model)
  *     if bias > 0: nr_feature = nr_feature + 1             # <<<<<<<<<<<<<<
@@ -1825,7 +1825,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   __pyx_L9:;
 
-  /* "sklearn/svm/liblinear.pyx":67
+  /* "tgrocery/svm/liblinear.pyx":67
  *     cdef int nr_feature = get_nr_feature(model)
  *     if bias > 0: nr_feature = nr_feature + 1
  *     if nr_class == 2 and solver_type != 4:  # solver is not Crammer-Singer             # <<<<<<<<<<<<<<
@@ -1845,7 +1845,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_L11_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "sklearn/svm/liblinear.pyx":68
+    /* "tgrocery/svm/liblinear.pyx":68
  *     if bias > 0: nr_feature = nr_feature + 1
  *     if nr_class == 2 and solver_type != 4:  # solver is not Crammer-Singer
  *         w = np.empty((1, nr_feature),order='F')             # <<<<<<<<<<<<<<
@@ -1902,7 +1902,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_v_w = ((PyArrayObject *)__pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "sklearn/svm/liblinear.pyx":69
+    /* "tgrocery/svm/liblinear.pyx":69
  *     if nr_class == 2 and solver_type != 4:  # solver is not Crammer-Singer
  *         w = np.empty((1, nr_feature),order='F')
  *         copy_w(w.data, model, nr_feature)             # <<<<<<<<<<<<<<
@@ -1914,7 +1914,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   /*else*/ {
 
-    /* "sklearn/svm/liblinear.pyx":71
+    /* "tgrocery/svm/liblinear.pyx":71
  *         copy_w(w.data, model, nr_feature)
  *     else:
  *         len_w = (nr_class) * nr_feature             # <<<<<<<<<<<<<<
@@ -1923,7 +1923,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
     __pyx_v_len_w = (__pyx_v_nr_class * __pyx_v_nr_feature);
 
-    /* "sklearn/svm/liblinear.pyx":72
+    /* "tgrocery/svm/liblinear.pyx":72
  *     else:
  *         len_w = (nr_class) * nr_feature
  *         w = np.empty((nr_class, nr_feature),order='F')             # <<<<<<<<<<<<<<
@@ -1982,7 +1982,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __pyx_v_w = ((PyArrayObject *)__pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "sklearn/svm/liblinear.pyx":73
+    /* "tgrocery/svm/liblinear.pyx":73
  *         len_w = (nr_class) * nr_feature
  *         w = np.empty((nr_class, nr_feature),order='F')
  *         copy_w(w.data, model, len_w)             # <<<<<<<<<<<<<<
@@ -1993,7 +1993,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   }
   __pyx_L10:;
 
-  /* "sklearn/svm/liblinear.pyx":76
+  /* "tgrocery/svm/liblinear.pyx":76
  * 
  *     ### FREE
  *     free_and_destroy_model(&model)             # <<<<<<<<<<<<<<
@@ -2002,7 +2002,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   free_and_destroy_model((&__pyx_v_model));
 
-  /* "sklearn/svm/liblinear.pyx":77
+  /* "tgrocery/svm/liblinear.pyx":77
  *     ### FREE
  *     free_and_destroy_model(&model)
  *     free_problem(problem)             # <<<<<<<<<<<<<<
@@ -2011,7 +2011,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   free_problem(__pyx_v_problem);
 
-  /* "sklearn/svm/liblinear.pyx":78
+  /* "tgrocery/svm/liblinear.pyx":78
  *     free_and_destroy_model(&model)
  *     free_problem(problem)
  *     free_parameter(param)             # <<<<<<<<<<<<<<
@@ -2020,7 +2020,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
   free_parameter(__pyx_v_param);
 
-  /* "sklearn/svm/liblinear.pyx":81
+  /* "tgrocery/svm/liblinear.pyx":81
  *     # destroy_param(param)  don't call this or it will destroy class_weight_label and class_weight
  * 
  *     return w, n_iter             # <<<<<<<<<<<<<<
@@ -2040,7 +2040,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "sklearn/svm/liblinear.pyx":14
+  /* "tgrocery/svm/liblinear.pyx":14
  * 
  * 
  * def train_wrap(X, np.ndarray[np.float64_t,   ndim=1, mode='c'] Y,             # <<<<<<<<<<<<<<
@@ -2065,7 +2065,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_n_iter.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_w.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("sklearn.svm.liblinear.train_wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("tgrocery.svm.liblinear.train_wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -2083,7 +2083,7 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "sklearn/svm/liblinear.pyx":84
+/* "tgrocery/svm/liblinear.pyx":84
  * 
  * 
  * def set_verbosity_wrap(int verbosity):             # <<<<<<<<<<<<<<
@@ -2092,10 +2092,10 @@ static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_train_wrap(CYTHON_UNUSED PyOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_3set_verbosity_wrap(PyObject *__pyx_self, PyObject *__pyx_arg_verbosity); /*proto*/
-static char __pyx_doc_7sklearn_3svm_9liblinear_2set_verbosity_wrap[] = "\n    Control verbosity of libsvm library\n    ";
-static PyMethodDef __pyx_mdef_7sklearn_3svm_9liblinear_3set_verbosity_wrap = {"set_verbosity_wrap", (PyCFunction)__pyx_pw_7sklearn_3svm_9liblinear_3set_verbosity_wrap, METH_O, __pyx_doc_7sklearn_3svm_9liblinear_2set_verbosity_wrap};
-static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_3set_verbosity_wrap(PyObject *__pyx_self, PyObject *__pyx_arg_verbosity) {
+static PyObject *__pyx_pw_7tgrocery_3svm_9liblinear_3set_verbosity_wrap(PyObject *__pyx_self, PyObject *__pyx_arg_verbosity); /*proto*/
+static char __pyx_doc_7tgrocery_3svm_9liblinear_2set_verbosity_wrap[] = "\n    Control verbosity of libsvm library\n    ";
+static PyMethodDef __pyx_mdef_7tgrocery_3svm_9liblinear_3set_verbosity_wrap = {"set_verbosity_wrap", (PyCFunction)__pyx_pw_7tgrocery_3svm_9liblinear_3set_verbosity_wrap, METH_O, __pyx_doc_7tgrocery_3svm_9liblinear_2set_verbosity_wrap};
+static PyObject *__pyx_pw_7tgrocery_3svm_9liblinear_3set_verbosity_wrap(PyObject *__pyx_self, PyObject *__pyx_arg_verbosity) {
   int __pyx_v_verbosity;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2108,30 +2108,30 @@ static PyObject *__pyx_pw_7sklearn_3svm_9liblinear_3set_verbosity_wrap(PyObject 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("sklearn.svm.liblinear.set_verbosity_wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("tgrocery.svm.liblinear.set_verbosity_wrap", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7sklearn_3svm_9liblinear_2set_verbosity_wrap(__pyx_self, ((int)__pyx_v_verbosity));
+  __pyx_r = __pyx_pf_7tgrocery_3svm_9liblinear_2set_verbosity_wrap(__pyx_self, ((int)__pyx_v_verbosity));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7sklearn_3svm_9liblinear_2set_verbosity_wrap(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_verbosity) {
+static PyObject *__pyx_pf_7tgrocery_3svm_9liblinear_2set_verbosity_wrap(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_verbosity) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_verbosity_wrap", 0);
 
-  /* "sklearn/svm/liblinear.pyx":88
+  /* "tgrocery/svm/liblinear.pyx":88
  *     Control verbosity of libsvm library
  *     """
  *     set_verbosity(verbosity)             # <<<<<<<<<<<<<<
  */
   set_verbosity(__pyx_v_verbosity);
 
-  /* "sklearn/svm/liblinear.pyx":84
+  /* "tgrocery/svm/liblinear.pyx":84
  * 
  * 
  * def set_verbosity_wrap(int verbosity):             # <<<<<<<<<<<<<<
@@ -4227,7 +4227,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_set_verbosity_wrap, __pyx_k_set_verbosity_wrap, sizeof(__pyx_k_set_verbosity_wrap), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
-  {&__pyx_n_s_sklearn_svm_liblinear, __pyx_k_sklearn_svm_liblinear, sizeof(__pyx_k_sklearn_svm_liblinear), 0, 0, 1, 1},
+  {&__pyx_n_s_tgrocery_svm_liblinear, __pyx_k_tgrocery_svm_liblinear, sizeof(__pyx_k_tgrocery_svm_liblinear), 0, 0, 1, 1},
   {&__pyx_n_s_solver_type, __pyx_k_solver_type, sizeof(__pyx_k_solver_type), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_train_wrap, __pyx_k_train_wrap, sizeof(__pyx_k_train_wrap), 0, 0, 1, 1},
@@ -4316,7 +4316,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "sklearn/svm/liblinear.pyx":14
+  /* "tgrocery/svm/liblinear.pyx":14
  * 
  * 
  * def train_wrap(X, np.ndarray[np.float64_t,   ndim=1, mode='c'] Y,             # <<<<<<<<<<<<<<
@@ -4328,7 +4328,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__7);
   __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(11, 0, 22, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_fp985994_dev_scikit_learn, __pyx_n_s_train_wrap, 14, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "sklearn/svm/liblinear.pyx":84
+  /* "tgrocery/svm/liblinear.pyx":84
  * 
  * 
  * def set_verbosity_wrap(int verbosity):             # <<<<<<<<<<<<<<
@@ -4415,14 +4415,14 @@ PyMODINIT_FUNC PyInit_liblinear(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_sklearn__svm__liblinear) {
+  if (__pyx_module_is_main_tgrocery__svm__liblinear) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "sklearn.svm.liblinear")) {
-      if (unlikely(PyDict_SetItemString(modules, "sklearn.svm.liblinear", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "tgrocery.svm.liblinear")) {
+      if (unlikely(PyDict_SetItemString(modules, "tgrocery.svm.liblinear", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -4451,7 +4451,7 @@ PyMODINIT_FUNC PyInit_liblinear(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "sklearn/svm/liblinear.pyx":7
+  /* "tgrocery/svm/liblinear.pyx":7
  * """
  * 
  * import  numpy as np             # <<<<<<<<<<<<<<
@@ -4463,7 +4463,7 @@ PyMODINIT_FUNC PyInit_liblinear(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "sklearn/svm/liblinear.pyx":11
+  /* "tgrocery/svm/liblinear.pyx":11
  * cimport liblinear
  * 
  * np.import_array()             # <<<<<<<<<<<<<<
@@ -4472,31 +4472,31 @@ PyMODINIT_FUNC PyInit_liblinear(void)
  */
   import_array();
 
-  /* "sklearn/svm/liblinear.pyx":14
+  /* "tgrocery/svm/liblinear.pyx":14
  * 
  * 
  * def train_wrap(X, np.ndarray[np.float64_t,   ndim=1, mode='c'] Y,             # <<<<<<<<<<<<<<
  *                bint is_sparse, int solver_type, double eps, double bias,
  *                double C, np.ndarray[np.float64_t, ndim=1] class_weight,
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_7sklearn_3svm_9liblinear_1train_wrap, NULL, __pyx_n_s_sklearn_svm_liblinear); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_7tgrocery_3svm_9liblinear_1train_wrap, NULL, __pyx_n_s_tgrocery_svm_liblinear); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_train_wrap, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "sklearn/svm/liblinear.pyx":84
+  /* "tgrocery/svm/liblinear.pyx":84
  * 
  * 
  * def set_verbosity_wrap(int verbosity):             # <<<<<<<<<<<<<<
  *     """
  *     Control verbosity of libsvm library
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_7sklearn_3svm_9liblinear_3set_verbosity_wrap, NULL, __pyx_n_s_sklearn_svm_liblinear); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_7tgrocery_3svm_9liblinear_3set_verbosity_wrap, NULL, __pyx_n_s_tgrocery_svm_liblinear); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_set_verbosity_wrap, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "sklearn/svm/liblinear.pyx":1
+  /* "tgrocery/svm/liblinear.pyx":1
  * """             # <<<<<<<<<<<<<<
  * Wrapper for liblinear
  * 
@@ -4521,12 +4521,12 @@ PyMODINIT_FUNC PyInit_liblinear(void)
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init sklearn.svm.liblinear", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init tgrocery.svm.liblinear", __pyx_clineno, __pyx_lineno, __pyx_filename);
       Py_DECREF(__pyx_d); __pyx_d = 0;
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init sklearn.svm.liblinear");
+    PyErr_SetString(PyExc_ImportError, "init tgrocery.svm.liblinear");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
