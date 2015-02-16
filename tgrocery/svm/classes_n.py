@@ -22,27 +22,44 @@ class LinearSVM(object):
         classes_ = np.unique(y)
         class_weight_ = np.ones(classes_.shape[0], dtype=np.float64, order='C')
         bias = -1.0
-        liblinear.set_verbosity_wrap(1)
-        raw_coef_, n_iter_ = liblinear.train_wrap(X, y, self.solver_type, 0, self.tol, bias, self.C,
+        raw_coef_, n_iter_ = liblinear.train_wrap(X, y, self.solver_type, 1, self.tol, bias, self.C,
                                                   class_weight_, self.max_iter, 0, epsilon)
 
         n_iter_ = max(n_iter_)
         return raw_coef_, n_iter_
 
 
+class FakeSparse(object):
+    def __init__(self):
+        self.data = None
+        self.indices = None
+        self.indptr = None
+        self.shape = None
+
+
 if __name__ == '__main__':
     svm = LinearSVM(solver_type=4)
 
-    from sklearn.feature_extraction.text import HashingVectorizer
+    from sklearn.feature_extraction.text import CountVectorizer
     import jieba
     from scipy.sparse.base import spmatrix
 
     def tokenizer(text):
         return jieba.cut(text, cut_all=True)
 
-    text_src = ['aa bb aa', 'bb aa cc', 'cc bb bb', 'cc', 'bb']
-    v = HashingVectorizer(tokenizer=tokenizer, n_features=30000, non_negative=True)
-    data = v.fit_transform(text_src)
-    y = np.asarray([0, 1, 0, 1, 1])
-    print isinstance(data, spmatrix)
-    svm.fit(data, y)
+    train_words = ['aa bb aa', 'bb aa cc', 'cc bb bb', 'cc', 'bb']
+    v = CountVectorizer(tokenizer=tokenizer)
+    # train_data = v.fit_transform(train_words)
+    train_data = FakeSparse()
+    train_data.data = np.asarray([2, 1, 1, 1, 2, 1, 1, 1, 1])
+    train_data.indices = np.asarray([0, 1, 0, 1, 2, 4, 1, 2, 3])
+    train_data.indptr = np.asarray([0, 2, 6, 9])
+    train_data.shape = (3, 5)
+    print train_data.data
+    print train_data.indices.shape
+    print train_data.indices
+    print train_data.indptr.shape
+    print train_data.indptr
+    y = [0, 1, 0, 1, 1]
+    print isinstance(train_data, spmatrix)
+    svm.fit(train_data, y)
