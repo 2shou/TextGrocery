@@ -1,11 +1,9 @@
 from collections import defaultdict
 import cPickle
 import os
-from itertools import groupby
 
 import jieba
 import numpy as np
-import scipy.sparse as sp
 
 from base import *
 
@@ -187,14 +185,16 @@ class GroceryTextConverter(object):
                 continue
             feat, label = self.to_svm(text, label)
             labels.append(label)
+            indptr.append(len(feat))
             raw_sparse.extend([(idx, f, feat[f]) for f in feat])
         raw_sparse = sorted(raw_sparse, key=lambda x: x[1])
         indices, f, values = zip(*raw_sparse)
-        indptr.extend(accumulate([len(list(g)) for k, g in groupby(f)]))
-        # return FakeSparse(_np(values), _np(indices), _np(indptr), (len(labels), len(indptr) - 1)), labels
-        X = sp.csr_matrix((values, indices, indptr), shape=(len(labels), len(indptr) - 1))
-        X = self._sort_features(X, self.feat_gen.ngram2fidx)
-        return X, labels
+        indptr = list(accumulate(indptr))
+        return FakeSparse(_np(values), _np(indices), _np(indptr),
+                          (len(indptr) - 1, len(self.feat_gen.ngram2fidx))), labels
+        # X = sp.csr_matrix((values, indices, indptr), shape=(len(labels), len(indptr) - 1))
+        # X = self._sort_features(X, self.feat_gen.ngram2fidx)
+        # return X, labels
 
     def save(self, dest_dir):
         config = {
