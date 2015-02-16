@@ -1,5 +1,6 @@
 from converter import *
 from classifier import *
+from svm import LinearSVM
 
 
 __all__ = ['Grocery']
@@ -30,11 +31,9 @@ class Grocery(object):
 
     def train(self, train_src, delimiter='\t'):
         text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
-        self.train_svm_file = '%s_train.svm' % self.name
-        text_converter.convert_text(train_src, delimiter=delimiter)
-        # default parameter
-        model = train(self.train_svm_file, '', '-s 4')
-        self.model = GroceryTextModel(text_converter, model)
+        X, y = text_converter.convert_text(train_src, delimiter=delimiter)
+        svm = LinearSVM(solver_type=4)
+        svm.fit(X, y)
         return self
 
     def predict(self, single_text):

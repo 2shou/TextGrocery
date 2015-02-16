@@ -1,10 +1,11 @@
 from collections import defaultdict
 import cPickle
 import os
-import array
 from itertools import groupby
 
 import jieba
+import numpy as np
+import scipy.sparse as sp
 
 from base import *
 
@@ -130,16 +131,20 @@ class GroceryClassMapping(object):
         return self
 
 
+class FakeSparse(object):
+    def __init__(self, data=None, indices=None, indptr=None, shape=None):
+        self.data = data
+        self.indices = indices
+        self.indptr = indptr
+        self.shape = shape
+
+
 class GroceryTextConverter(object):
     def __init__(self, custom_tokenize=None):
         self.text_prep = GroceryTextPreProcessor()
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
         self.custom_tokenize = custom_tokenize
-
-    @staticmethod
-    def _make_int_array():
-        return array.array(str("i"))
 
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
@@ -153,6 +158,14 @@ class GroceryTextConverter(object):
             return feat
         return feat, self.class_map.to_idx(class_name)
 
+    def _sort_features(self, X, vocabulary):
+        sorted_features = sorted(vocabulary.iteritems())
+        map_index = np.empty(len(sorted_features), dtype=np.int32)
+        for new_val, (term, old_val) in enumerate(sorted_features):
+            map_index[new_val] = old_val
+            vocabulary[term] = new_val
+        return X[:, map_index]
+
     def convert_text(self, text_src, delimiter):
         def accumulate(iterator):
             total = 0
@@ -160,25 +173,28 @@ class GroceryTextConverter(object):
                 total += item
                 yield total
 
+        def _np(lst):
+            return np.asarray(lst)
+
         text_src = read_text_src(text_src, delimiter)
-        indptr = self._make_int_array()
-        indptr.append(0)
+        indptr = [0]
         raw_sparse = []
+        labels = []
         for idx, line in enumerate(text_src):
             try:
                 label, text = line
             except ValueError:
                 continue
             feat, label = self.to_svm(text, label)
+            labels.append(label)
             raw_sparse.extend([(idx, f, feat[f]) for f in feat])
         raw_sparse = sorted(raw_sparse, key=lambda x: x[1])
-        indices, y, values = zip(*raw_sparse)
-        indptr.extend(accumulate([len(list(g)) for k, g in groupby(y)]))
-        print indices
-        print values
-        print indptr
-
-        # w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+        indices, f, values = zip(*raw_sparse)
+        indptr.extend(accumulate([len(list(g)) for k, g in groupby(f)]))
+        # return FakeSparse(_np(values), _np(indices), _np(indptr), (len(labels), len(indptr) - 1)), labels
+        X = sp.csr_matrix((values, indices, indptr), shape=(len(labels), len(indptr) - 1))
+        X = self._sort_features(X, self.feat_gen.ngram2fidx)
+        return X, labels
 
     def save(self, dest_dir):
         config = {
