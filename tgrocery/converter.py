@@ -1,9 +1,13 @@
 from collections import defaultdict
 import cPickle
 import os
+import array
+from itertools import groupby
 
 import jieba
+
 from base import *
+
 
 __all__ = ['GroceryTextConverter']
 
@@ -133,6 +137,10 @@ class GroceryTextConverter(object):
         self.class_map = GroceryClassMapping()
         self.custom_tokenize = custom_tokenize
 
+    @staticmethod
+    def _make_int_array():
+        return array.array(str("i"))
+
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
 
@@ -145,18 +153,32 @@ class GroceryTextConverter(object):
             return feat
         return feat, self.class_map.to_idx(class_name)
 
-    def convert_text(self, text_src, delimiter, output=None):
-        if not output:
-            output = '%s.svm' % text_src
+    def convert_text(self, text_src, delimiter):
+        def accumulate(iterator):
+            total = 0
+            for item in iterator:
+                total += item
+                yield total
+
         text_src = read_text_src(text_src, delimiter)
-        with open(output, 'w') as w:
-            for line in text_src:
-                try:
-                    label, text = line
-                except ValueError:
-                    continue
-                feat, label = self.to_svm(text, label)
-                w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+        indptr = self._make_int_array()
+        indptr.append(0)
+        raw_sparse = []
+        for idx, line in enumerate(text_src):
+            try:
+                label, text = line
+            except ValueError:
+                continue
+            feat, label = self.to_svm(text, label)
+            raw_sparse.extend([(idx, f, feat[f]) for f in feat])
+        raw_sparse = sorted(raw_sparse, key=lambda x: x[1])
+        indices, y, values = zip(*raw_sparse)
+        indptr.extend(accumulate([len(list(g)) for k, g in groupby(y)]))
+        print indices
+        print values
+        print indptr
+
+        # w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
 
     def save(self, dest_dir):
         config = {

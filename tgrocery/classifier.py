@@ -3,7 +3,6 @@ import os
 import shutil
 
 from converter import GroceryTextConverter
-from .learner import *
 from base import *
 
 
@@ -27,7 +26,7 @@ class GroceryTextModel(object):
         except IOError:
             raise ValueError("The given model is invalid.")
         self.text_converter = GroceryTextConverter().load(model_name + '/converter')
-        self.svm_model = LearnerModel(model_name + '/learner')
+        # self.svm_model = LearnerModel(model_name + '/learner')
 
     def save(self, model_name, force=False):
         if self.svm_model is None:
@@ -53,11 +52,11 @@ class GroceryTextModel(object):
         if not isinstance(text, str):
             raise TypeError('The argument should be plain text')
         text = self.text_converter.to_svm(text)
-        y, dec = predict_one(text, self.svm_model)
-        y = self.text_converter.get_class_name(int(y))
-        labels = [self.text_converter.get_class_name(k) for k in
-                  self.svm_model.label[:self.svm_model.nr_class]]
-        return GroceryPredictResult(predicted_y=y, dec_values=dec[:self.svm_model.nr_class], labels=labels)
+        # y, dec = predict_one(text, self.svm_model)
+        # y = self.text_converter.get_class_name(int(y))
+        # labels = [self.text_converter.get_class_name(k) for k in
+        #           self.svm_model.label[:self.svm_model.nr_class]]
+        # return GroceryPredictResult(predicted_y=y, dec_values=dec[:self.svm_model.nr_class], labels=labels)
 
 
 class GroceryTest(object):

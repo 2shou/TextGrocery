@@ -3,19 +3,6 @@ import numpy as np
 import liblinear
 
 
-class LabelEncoder(object):
-    def __init__(self):
-        pass
-
-    def fit_transform(self, y):
-        self.classes_, y = np.unique(y, return_inverse=True)
-        return y
-
-    def inverse_transform(self, y):
-        y = np.asarray(y)
-        return self.classes_[y]
-
-
 class LinearSVM(object):
     def __init__(self, solver_type, C=1.0, tol=1e-4, fit_intercept=True, intercept_scaling=1., dual=True,
                  verbose=0, random_state=None, max_iter=1000):
@@ -30,14 +17,13 @@ class LinearSVM(object):
         self.max_iter = max_iter
 
     def fit(self, X, y, epsilon=0.1):
-        enc = LabelEncoder()
-        y_ind = enc.fit_transform(y)
-        classes_ = enc.classes_
         # LibLinear wants targets as doubles, even for classification
-        y_ind = np.asarray(y_ind, dtype=np.float64).ravel()
+        y = np.asarray(y, dtype=np.float64).ravel()
+        classes_ = np.unique(y)
         class_weight_ = np.ones(classes_.shape[0], dtype=np.float64, order='C')
         bias = -1.0
-        raw_coef_, n_iter_ = liblinear.train_wrap(X, y_ind, self.solver_type, 0, self.tol, bias, self.C,
+        liblinear.set_verbosity_wrap(1)
+        raw_coef_, n_iter_ = liblinear.train_wrap(X, y, self.solver_type, 0, self.tol, bias, self.C,
                                                   class_weight_, self.max_iter, 0, epsilon)
 
         n_iter_ = max(n_iter_)
@@ -46,6 +32,17 @@ class LinearSVM(object):
 
 if __name__ == '__main__':
     svm = LinearSVM(solver_type=4)
-    X = np.ones((2, 5), dtype=np.float64)
-    y = np.asarray([1, 1])
-    svm.fit(X, y)
+
+    from sklearn.feature_extraction.text import HashingVectorizer
+    import jieba
+    from scipy.sparse.base import spmatrix
+
+    def tokenizer(text):
+        return jieba.cut(text, cut_all=True)
+
+    text_src = ['aa bb aa', 'bb aa cc', 'cc bb bb', 'cc', 'bb']
+    v = HashingVectorizer(tokenizer=tokenizer, n_features=30000, non_negative=True)
+    data = v.fit_transform(text_src)
+    y = np.asarray([0, 1, 0, 1, 1])
+    print isinstance(data, spmatrix)
+    svm.fit(data, y)

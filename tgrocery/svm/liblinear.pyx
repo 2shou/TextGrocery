@@ -1,16 +1,10 @@
-"""
-Wrapper for liblinear
-
-Author: fabian.pedregosa@inria.fr
-"""
-
 import numpy as np
-
 cimport numpy as np
+cimport liblinear
 
 np.import_array()
 
-def train_wrap(X, np.ndarray[np.float64_t,   ndim=1, mode='c'] Y,
+def train_wrap(X, np.ndarray[np.float64_t, ndim=1, mode='c'] Y,
                bint is_sparse, int solver_type, double eps, double bias,
                double C, np.ndarray[np.float64_t, ndim=1] class_weight,
                int max_iter, unsigned random_seed, double epsilon):
@@ -20,11 +14,13 @@ def train_wrap(X, np.ndarray[np.float64_t,   ndim=1, mode='c'] Y,
     cdef char_const_ptr error_msg
     cdef int len_w
 
-    problem = set_problem(
-        (<np.ndarray[np.float64_t, ndim=2, mode='c']> X).data,
-        Y.data,
-        (<np.ndarray[np.float64_t, ndim=2, mode='c']> X).shape,
-        bias)
+    problem = csr_set_problem(
+        (<np.ndarray[np.float64_t, ndim=1, mode='c']> X.data).data,
+        (<np.ndarray[np.int32_t, ndim=1, mode='c']> X.indices).shape,
+        (<np.ndarray[np.int32_t, ndim=1, mode='c']> X.indices).data,
+        (<np.ndarray[np.int32_t, ndim=1, mode='c']> X.indptr).shape,
+        (<np.ndarray[np.int32_t, ndim=1, mode='c']> X.indptr).data,
+        Y.data, (<np.int32_t> X.shape[1]), bias)
 
     cdef np.ndarray[np.int32_t, ndim=1, mode='c'] \
         class_weight_label = np.arange(class_weight.shape[0], dtype=np.intc)

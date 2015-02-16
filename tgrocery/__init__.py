@@ -31,7 +31,7 @@ class Grocery(object):
     def train(self, train_src, delimiter='\t'):
         text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
         self.train_svm_file = '%s_train.svm' % self.name
-        text_converter.convert_text(train_src, output=self.train_svm_file, delimiter=delimiter)
+        text_converter.convert_text(train_src, delimiter=delimiter)
         # default parameter
         model = train(self.train_svm_file, '', '-s 4')
         self.model = GroceryTextModel(text_converter, model)
