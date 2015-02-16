@@ -25,10 +25,12 @@ def _list2dict(l):
     return dict((v, k) for k, v in enumerate(l))
 
 
+# TODO use defaultdict to make code shorter
+
 class GroceryTextPreProcessor(object):
     def __init__(self):
         # index must start from 1
-        self.tok2idx = {'>>dummy<<': 0}
+        self.tok2idx = {}
         self.idx2tok = None
 
     @staticmethod
@@ -61,7 +63,7 @@ class GroceryTextPreProcessor(object):
 
 class GroceryFeatureGenerator(object):
     def __init__(self):
-        self.ngram2fidx = {'>>dummy<<': 0}
+        self.ngram2fidx = {}
         self.fidx2ngram = None
 
     def unigram(self, tokens):
