@@ -47,19 +47,20 @@ if __name__ == '__main__':
     def tokenizer(text):
         return jieba.cut(text, cut_all=True)
 
-    train_words = ['aa bb aa', 'bb aa cc', 'cc bb bb', 'cc', 'bb']
-    v = CountVectorizer(tokenizer=tokenizer)
+    train_words = ['aa bb aa ee kk ff', 'bb ss aa cc', 'cc bb bb', 'cc', 'bb dd', 'll gg xx']
+    # v = CountVectorizer(tokenizer=tokenizer)
     # train_data = v.fit_transform(train_words)
     train_data = FakeSparse()
-    train_data.data = np.asarray([2, 1, 1, 1, 2, 1, 1, 1, 1])
-    train_data.indices = np.asarray([0, 1, 0, 1, 2, 4, 1, 2, 3])
-    train_data.indptr = np.asarray([0, 2, 6, 9])
-    train_data.shape = (3, 5)
-    print train_data.data
-    print train_data.indices.shape
-    print train_data.indices
-    print train_data.indptr.shape
-    print train_data.indptr
-    y = [0, 1, 0, 1, 1]
+    train_data.data = np.asarray([2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], dtype=np.int64)
+    train_data.indices = np.asarray([0, 1, 0, 1, 2, 4, 1, 2, 3, 4, 0, 0, 5, 0, 5, 1, 5], dtype=np.int32)
+    train_data.indptr = np.asarray([0, 2, 6, 9, 10, 11, 12, 13, 14, 15, 16, 17], dtype=np.int32)
+    train_data.shape = (6, 11)
+    # print train_data.data.dtype
+    # print train_data.indices.shape
+    # print train_data.indices.dtype
+    # print train_data.indptr.shape
+    # print train_data.indptr.dtype
+    # print train_data.shape
+    y = [0, 1, 0, 1, 1, 0]
     print isinstance(train_data, spmatrix)
     svm.fit(train_data, y)

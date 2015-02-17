@@ -3,6 +3,7 @@ import cPickle
 import os
 
 import jieba
+
 import numpy as np
 
 from base import *
@@ -173,9 +174,6 @@ class GroceryTextConverter(object):
                 total += item
                 yield total
 
-        def _np(lst):
-            return np.asarray(lst)
-
         text_src = read_text_src(text_src, delimiter)
         indptr = [0]
         raw_sparse = []
@@ -191,12 +189,11 @@ class GroceryTextConverter(object):
             raw_sparse.extend([(idx, f, feat[f]) for f in feat])
         raw_sparse = sorted(raw_sparse, key=lambda x: x[1])
         indices, f, values = zip(*raw_sparse)
-        indptr = list(accumulate(indptr))
-        return FakeSparse(_np(values), _np(indices), _np(indptr),
+        values = np.array(values, dtype=np.int64)
+        indices = np.array(indices, dtype=np.int32)
+        indptr = np.array(list(accumulate(indptr)), dtype=np.int32)
+        return FakeSparse(values, indices, indptr,
                           (len(indptr) - 1, len(self.feat_gen.ngram2fidx))), labels
-        # X = sp.csr_matrix((values, indices, indptr), shape=(len(labels), len(indptr) - 1))
-        # X = self._sort_features(X, self.feat_gen.ngram2fidx)
-        # return X, labels
 
     def save(self, dest_dir):
         config = {
