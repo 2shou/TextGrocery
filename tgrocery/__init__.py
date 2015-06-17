@@ -16,9 +16,8 @@ class GroceryNotTrainException(GroceryException):
 class Grocery(object):
     def __init__(self, name, custom_tokenize=None):
         self.name = name
-        if custom_tokenize is not None:
-            if not hasattr(custom_tokenize, '__call__'):
-                raise GroceryException('Tokenize func must be callable.')
+        if custom_tokenize is not None and not hasattr(custom_tokenize, '__call__'):
+            raise GroceryException('Tokenize func must be callable.')
         self.custom_tokenize = custom_tokenize
         self.model = None
         self.classifier = None

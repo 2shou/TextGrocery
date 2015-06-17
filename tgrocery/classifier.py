@@ -9,8 +9,10 @@ from base import *
 
 class GroceryTextModel(object):
     def __init__(self, text_converter=None, model=None):
-        if isinstance(text_converter, GroceryTextConverter):
+        if text_converter is not None and isinstance(text_converter, GroceryTextConverter):
             self.text_converter = text_converter
+        else:
+            self.text_converter = GroceryTextConverter()
         self.svm_model = model
         self._hashcode = str(uuid.uuid4())
 
@@ -26,7 +28,7 @@ class GroceryTextModel(object):
                 self._hashcode = fin.readline().strip()
         except IOError:
             raise ValueError("The given model is invalid.")
-        self.text_converter = GroceryTextConverter().load(model_name + '/converter')
+        self.text_converter.load(model_name + '/converter')
         self.svm_model = LearnerModel(model_name + '/learner')
 
     def save(self, model_name, force=False):
