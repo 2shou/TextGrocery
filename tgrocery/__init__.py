@@ -1,7 +1,6 @@
 from converter import *
 from classifier import *
 
-
 __all__ = ['Grocery']
 
 
@@ -53,7 +52,8 @@ class Grocery(object):
         self.model.save(self.name, force=True)
 
     def load(self):
-        self.model = GroceryTextModel(self.custom_tokenize)
+        text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
+        self.model = GroceryTextModel(text_converter)
         self.model.load(self.name)
 
     def __del__(self):

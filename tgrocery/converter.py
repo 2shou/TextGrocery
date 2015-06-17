@@ -30,7 +30,7 @@ class GroceryTextPreProcessor(object):
 
     @staticmethod
     def _default_tokenize(text):
-        return jieba.cut(text, cut_all=True)
+        return jieba.cut(text.strip(), cut_all=True)
 
     def preprocess(self, text, custom_tokenize):
         if custom_tokenize is not None:
