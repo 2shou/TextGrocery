@@ -26,12 +26,12 @@ class Grocery(object):
     def get_load_status(self):
         return self.model is not None and isinstance(self.model, GroceryTextModel)
 
-    def train(self, train_src, delimiter='\t'):
+    def train(self, train_src, delimiter='\t',para='',libpara='-s 4'):
         text_converter = GroceryTextConverter(custom_tokenize=self.custom_tokenize)
         self.train_svm_file = '%s_train.svm' % self.name
         text_converter.convert_text(train_src, output=self.train_svm_file, delimiter=delimiter)
         # default parameter
-        model = train(self.train_svm_file, '', '-s 4')
+        model = train(self.train_svm_file, para, libpara)
         self.model = GroceryTextModel(text_converter, model)
         return self
 
