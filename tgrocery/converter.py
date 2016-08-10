@@ -132,6 +132,8 @@ class GroceryTextConverter(object):
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
         self.custom_tokenize = custom_tokenize
+        #if stopwords=None:
+        #   self.stopwords=[]
 
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
@@ -139,23 +141,28 @@ class GroceryTextConverter(object):
     def get_class_name(self, class_idx):
         return self.class_map.to_class_name(class_idx)
 
-    def to_svm(self, text, class_name=None):
-        feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
+    def to_svm(self, text, class_name=None,use_bigram=False):
+        if use_bigram:
+            feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
+            #return a dictionary , bigram makes too many features
+        else:
+            feat = self.feat_gen.unigram(self.text_prep.preprocess(text, self.custom_tokenize))
         if class_name is None:
             return feat
         return feat, self.class_map.to_idx(class_name)
 
-    def convert_text(self, text_src, delimiter, output=None):
+    def convert_text(self, text_src, delimiter, output=None,use_bigram=False):
         if not output:
             output = '%s.svm' % text_src
         text_src = read_text_src(text_src, delimiter)
+        #count to get  stopwords
         with open(output, 'w') as w:
             for line in text_src:
                 try:
                     label, text = line
                 except ValueError:
                     continue
-                feat, label = self.to_svm(text, label)
+                feat, label = self.to_svm(text, label,use_bigram)
                 w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
 
     def save(self, dest_dir):
