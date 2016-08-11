@@ -27,6 +27,7 @@ class GroceryTextPreProcessor(object):
         # index must start from 1
         self.tok2idx = {'>>dummy<<': 0}
         self.idx2tok = None
+        #self.stopwords=[]
 
     @staticmethod
     def _default_tokenize(text):
@@ -38,10 +39,18 @@ class GroceryTextPreProcessor(object):
         else:
             tokens = self._default_tokenize(text)
         ret = []
-        for idx, tok in enumerate(tokens):
-            if tok not in self.tok2idx:
-                self.tok2idx[tok] = len(self.tok2idx)
-            ret.append(self.tok2idx[tok])
+        if not self.stopwords is None:
+            for  tok in tokens:
+                if tok in self.stopwords:
+                    continue
+                if tok not in self.tok2idx:
+                    self.tok2idx[tok] = len(self.tok2idx)
+                ret.append(self.tok2idx[tok])
+        else:
+            for  tok in tokens:
+                if tok not in self.tok2idx:
+                    self.tok2idx[tok] = len(self.tok2idx)
+                ret.append(self.tok2idx[tok])
         return ret
 
     def save(self, dest_file):
@@ -133,7 +142,7 @@ class GroceryTextConverter(object):
         self.class_map = GroceryClassMapping()
         self.custom_tokenize = custom_tokenize
         #if stopwords=None:
-        #   self.stopwords=[]
+        self.stopwords=[]
 
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
@@ -156,6 +165,7 @@ class GroceryTextConverter(object):
             output = '%s.svm' % text_src
         text_src = read_text_src(text_src, delimiter)
         #count to get  stopwords
+        self.text_prep.stopwords=self.stopwords
         with open(output, 'w') as w:
             for line in text_src:
                 try:
