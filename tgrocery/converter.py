@@ -164,7 +164,17 @@ class GroceryTextConverter(object):
         if not output:
             output = '%s.svm' % text_src
         text_src = read_text_src(text_src, delimiter)
-        #count to get  stopwords
+        #count to get  stopwords,very slow
+#        dictionary=defaultdict(int)
+#        for line in text_src:
+#            try:
+#                label, text = line
+#            except ValueError:
+#                continue
+#            for word in jieba.cut(text):
+#                dictionary[word]+=1
+#        rare_words=[word for word in dictionary if dictionary[word]==1]
+#        self.stopwords.extend(rare_words)
         self.text_prep.stopwords=self.stopwords
         with open(output, 'w') as w:
             for line in text_src:
