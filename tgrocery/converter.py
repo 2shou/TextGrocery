@@ -141,7 +141,6 @@ class GroceryTextConverter(object):
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
         self.custom_tokenize = custom_tokenize
-        #if stopwords=None:
         self.stopwords=[]
 
     def get_class_idx(self, class_name):
@@ -164,17 +163,21 @@ class GroceryTextConverter(object):
         if not output:
             output = '%s.svm' % text_src
         text_src = read_text_src(text_src, delimiter)
-        #count to get  stopwords,very slow
-#        dictionary=defaultdict(int)
-#        for line in text_src:
-#            try:
-#                label, text = line
-#            except ValueError:
-#                continue
-#            for word in jieba.cut(text):
-#                dictionary[word]+=1
-#        rare_words=[word for word in dictionary if dictionary[word]==1]
-#        self.stopwords.extend(rare_words)
+        #count to get  stopwords
+        dictionary=defaultdict(int)
+        for line in text_src:
+            try:
+                label, text = line
+            except ValueError:
+                continue
+            for word in jieba.cut(text):
+                dictionary[word]+=1
+        rare_words=[word for word in dictionary if dictionary[word]<3]
+        print 'rare words extracted'
+        if self.stopwords is not None:
+            self.stopwords.extend(rare_words)
+        else:
+            self.stopwords=rare_words
         self.text_prep.stopwords=self.stopwords
         with open(output, 'w') as w:
             for line in text_src:
@@ -184,6 +187,7 @@ class GroceryTextConverter(object):
                     continue
                 feat, label = self.to_svm(text, label,use_bigram)
                 w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+        del dictionary
 
     def save(self, dest_dir):
         config = {
