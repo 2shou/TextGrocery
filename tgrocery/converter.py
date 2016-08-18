@@ -39,18 +39,18 @@ class GroceryTextPreProcessor(object):
         else:
             tokens = self._default_tokenize(text)
         ret = []
-#        if self.stopwords:
-        for  tok in tokens:
-            if tok in self.stopwords:
-                continue
-            if tok not in self.tok2idx:
-                self.tok2idx[tok] = len(self.tok2idx)
-            ret.append(self.tok2idx[tok])
-#        else:
-#            for  tok in tokens:
-#                if tok not in self.tok2idx:
-#                    self.tok2idx[tok] = len(self.tok2idx)
-#                ret.append(self.tok2idx[tok])
+        if self.stopwords:
+            for  tok in tokens:
+                if tok in self.stopwords:
+                    continue
+                if tok not in self.tok2idx:
+                    self.tok2idx[tok] = len(self.tok2idx)
+                ret.append(self.tok2idx[tok])
+        else:
+            for  tok in tokens:
+                if tok not in self.tok2idx:
+                    self.tok2idx[tok] = len(self.tok2idx)
+                ret.append(self.tok2idx[tok])
         return ret
 
     def save(self, dest_file):
@@ -150,13 +150,14 @@ class GroceryTextConverter(object):
         return self.class_map.to_class_name(class_idx)
 
     def to_svm(self, text, class_name=None):
-#        if use_bigram:
-#            feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
 #            #return a dictionary , bigram makes too many features
-#        else:
         feat = self.feat_gen.unigram(self.text_prep.preprocess(text, self.custom_tokenize))
         if class_name is None:
             return feat
+        return feat, self.class_map.to_idx(class_name)
+        
+    def bi_to_svm(self, text, class_name=None):
+        feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
         return feat, self.class_map.to_idx(class_name)
 
     def convert_text(self, text_src, delimiter, output=None,use_bigram=False):
@@ -175,21 +176,29 @@ class GroceryTextConverter(object):
                     dictionary[word.encode('utf8')]+=1
             rare_words=[word for word in dictionary if dictionary[word]<3]
             print 'rare words extracted'
-            print type(rare_words[0])
-            print type(self.stopwords[0])
             if isinstance(self.stopwords,list):
                 self.stopwords.extend(rare_words)
             else:
                 self.stopwords=rare_words
         self.text_prep.stopwords=self.stopwords
-        with open(output, 'w') as w:
-            for line in text_src:
-                try:
-                    label, text = line
-                except ValueError:
-                    continue
-                feat, label = self.to_svm(text, label)
-                w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+        if use_bigram:
+            with open(output, 'w') as w:
+                for line in text_src:
+                    try:
+                        label, text = line
+                    except ValueError:
+                        continue
+                    feat, label = self.bi_to_svm(text, label)
+                    w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+        else:
+            with open(output, 'w') as w:
+                for line in text_src:
+                    try:
+                        label, text = line
+                    except ValueError:
+                        continue
+                    feat, label = self.to_svm(text, label)
+                    w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
 
     def save(self, dest_dir):
         config = {
