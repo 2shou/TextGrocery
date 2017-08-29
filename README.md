@@ -38,6 +38,7 @@ Sample Code
 ]
 >>> grocery.train(train_src)
 # Or train from file
+# Format: Label\tText
 >>> grocery.train('train_ch.txt')
 # Save model
 >>> grocery.save()
