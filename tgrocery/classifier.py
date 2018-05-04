@@ -1,10 +1,9 @@
 import uuid
 import os
-import shutil
 
-from converter import GroceryTextConverter
+from .converter import GroceryTextConverter
 from .learner import *
-from base import *
+from .base import *
 
 
 class GroceryTextModel(object):
@@ -32,14 +31,13 @@ class GroceryTextModel(object):
         self.svm_model = LearnerModel(model_name + '/learner')
 
     def save(self, model_name, force=False):
+        """
+        force parameter is deprecated (ignored)
+        """
         if self.svm_model is None:
             raise Exception('This model can not be saved because svm model is not given.')
-        if os.path.exists(model_name) and force:
-            shutil.rmtree(model_name)
-        try:
+        if not os.path.exists(model_name):
             os.mkdir(model_name)
-        except OSError as e:
-            raise OSError(e, 'Please use force option to overwrite the existing files.')
         self.text_converter.save(model_name + '/converter')
         self.svm_model.save(model_name + '/learner', force)
 
@@ -50,7 +48,7 @@ class GroceryTextModel(object):
         if self.svm_model is None:
             raise Exception('This model is not usable because svm model is not given')
         # process unicode type
-        if isinstance(text, unicode):
+        if isinstance(text, str):
             text = text.encode('utf-8')
         if not isinstance(text, str):
             raise TypeError('The argument should be plain text')

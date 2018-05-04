@@ -347,17 +347,12 @@ class LearnerModel(liblinear.model):
 
     def save(self, model_dir, force=False):
         """
-        Save the model to a directory. If *force* is set to ``True``,
-        the existing directory will be overwritten; otherwise,
-        :class:`IOError` will be raised.
+        Save the model to a directory.
+        The force parameter is deprecated (ignored)
         """
 
-        if path.exists(model_dir):
-            if force:
-                shutil.rmtree(model_dir)
-            else :
-                raise OSError('Please use force option to overwrite the existing files.')
-        os.mkdir(model_dir)
+        if not path.exists(model_dir):
+            os.mkdir(model_dir)
 
         liblinear_save_model(path.join(model_dir,'liblinear_model'), self.c_model)
         options_file = path.join(model_dir,'options.pickle')

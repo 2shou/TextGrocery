@@ -1,6 +1,11 @@
 TextGrocery
 ===========
 
+I only made a few changes:
+* adapted to python3.6
+* deprecate force parameters on save methods that lead to deleted directories.
+
+
 [![Build Status](https://travis-ci.org/2shou/TextGrocery.svg?branch=master)](https://travis-ci.org/2shou/TextGrocery)
 
 A simple, efficient short-text classification tool based on LibLinear

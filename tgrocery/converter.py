@@ -1,9 +1,10 @@
 from collections import defaultdict
-import cPickle
+import _pickle as cPickle
 import os
 
-import jieba
-from base import *
+# import jieba
+import nltk
+from .base import *
 
 __all__ = ['GroceryTextConverter']
 
@@ -11,9 +12,9 @@ __all__ = ['GroceryTextConverter']
 def _dict2list(d):
     if len(d) == 0:
         return []
-    m = max(v for k, v in d.iteritems())
+    m = max(v for k, v in d.items())
     ret = [''] * (m + 1)
-    for k, v in d.iteritems():
+    for k, v in d.items():
         ret[v] = k
     return ret
 
@@ -30,7 +31,7 @@ class GroceryTextPreProcessor(object):
 
     @staticmethod
     def _default_tokenize(text):
-        return jieba.cut(text.strip(), cut_all=True)
+        return nltk.word_tokenize(text)
 
     def preprocess(self, text, custom_tokenize):
         if custom_tokenize is not None:
