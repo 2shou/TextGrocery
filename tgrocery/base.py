@@ -32,7 +32,7 @@ class GroceryTestResult(object):
             labels[true_label][2] += 1
         self.accuracy_labels = {}
         self.recall_labels = {}
-        for key, val in labels.iteritems():
+        for key, val in labels.items():
             try:
                 self.accuracy_labels[key] = float(val[0]) / val[1]
             except ZeroDivisionError:
@@ -51,14 +51,14 @@ class GroceryTestResult(object):
         return table_string
 
     def show_result(self):
-        print self.draw_table(
-            zip(
-                ['%.2f%%' % (s * 100) for s in self.accuracy_labels.values()],
-                ['%.2f%%' % (s * 100) for s in self.recall_labels.values()]
-            ),
-            self.accuracy_labels.keys(),
+        print(self.draw_table(
+            list(zip(
+                ['%.2f%%' % (s * 100) for s in list(self.accuracy_labels.values())],
+                ['%.2f%%' % (s * 100) for s in list(self.recall_labels.values())]
+            )),
+            list(self.accuracy_labels.keys()),
             ('accuracy', 'recall')
-        )
+        ))
 
     def __str__(self):
         return str(self.accuracy_overall)
@@ -67,7 +67,7 @@ class GroceryTestResult(object):
 class GroceryPredictResult(object):
     def __init__(self, predicted_y=None, dec_values=None, labels=None):
         self.predicted_y = predicted_y
-        self.dec_values = dict(zip(labels, dec_values))
+        self.dec_values = dict(list(zip(labels, dec_values)))
 
     def __str__(self):
         return self.predicted_y
