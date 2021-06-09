@@ -27,6 +27,7 @@ class GroceryTextPreProcessor(object):
         # index must start from 1
         self.tok2idx = {'>>dummy<<': 0}
         self.idx2tok = None
+        #self.stopwords=False
 
     @staticmethod
     def _default_tokenize(text):
@@ -38,10 +39,18 @@ class GroceryTextPreProcessor(object):
         else:
             tokens = self._default_tokenize(text)
         ret = []
-        for idx, tok in enumerate(tokens):
-            if tok not in self.tok2idx:
-                self.tok2idx[tok] = len(self.tok2idx)
-            ret.append(self.tok2idx[tok])
+        if self.stopwords:
+            for  tok in tokens:
+                if tok in self.stopwords:
+                    continue
+                if tok not in self.tok2idx:
+                    self.tok2idx[tok] = len(self.tok2idx)
+                ret.append(self.tok2idx[tok])
+        else:
+            for  tok in tokens:
+                if tok not in self.tok2idx:
+                    self.tok2idx[tok] = len(self.tok2idx)
+                ret.append(self.tok2idx[tok])
         return ret
 
     def save(self, dest_file):
@@ -132,6 +141,7 @@ class GroceryTextConverter(object):
         self.feat_gen = GroceryFeatureGenerator()
         self.class_map = GroceryClassMapping()
         self.custom_tokenize = custom_tokenize
+        self.stopwords=[]
 
     def get_class_idx(self, class_name):
         return self.class_map.to_idx(class_name)
@@ -140,23 +150,55 @@ class GroceryTextConverter(object):
         return self.class_map.to_class_name(class_idx)
 
     def to_svm(self, text, class_name=None):
-        feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
+#            #return a dictionary , bigram makes too many features
+        feat = self.feat_gen.unigram(self.text_prep.preprocess(text, self.custom_tokenize))
         if class_name is None:
             return feat
         return feat, self.class_map.to_idx(class_name)
+        
+    def bi_to_svm(self, text, class_name=None):
+        feat = self.feat_gen.bigram(self.text_prep.preprocess(text, self.custom_tokenize))
+        return feat, self.class_map.to_idx(class_name)
 
-    def convert_text(self, text_src, delimiter, output=None):
+    def convert_text(self, text_src, delimiter, output=None,use_bigram=False):
         if not output:
             output = '%s.svm' % text_src
         text_src = read_text_src(text_src, delimiter)
-        with open(output, 'w') as w:
+        if self.stopwords:
+            #count to get  stopwords
+            dictionary=defaultdict(int)
             for line in text_src:
                 try:
                     label, text = line
                 except ValueError:
                     continue
-                feat, label = self.to_svm(text, label)
-                w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+                for word in jieba.cut(text):
+                    dictionary[word.encode('utf8')]+=1
+            rare_words=[word for word in dictionary if dictionary[word]<3]
+            print 'rare words extracted'
+            if isinstance(self.stopwords,list):
+                self.stopwords.extend(rare_words)
+            else:
+                self.stopwords=rare_words
+        self.text_prep.stopwords=self.stopwords
+        if use_bigram:
+            with open(output, 'w') as w:
+                for line in text_src:
+                    try:
+                        label, text = line
+                    except ValueError:
+                        continue
+                    feat, label = self.bi_to_svm(text, label)
+                    w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
+        else:
+            with open(output, 'w') as w:
+                for line in text_src:
+                    try:
+                        label, text = line
+                    except ValueError:
+                        continue
+                    feat, label = self.to_svm(text, label)
+                    w.write('%s %s\n' % (label, ''.join(' {0}:{1}'.format(f, feat[f]) for f in sorted(feat))))
 
     def save(self, dest_dir):
         config = {
